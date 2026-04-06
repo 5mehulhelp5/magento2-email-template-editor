@@ -1,0 +1,90 @@
+<!-- Template Sidebar -->
+<div class="ete-sidebar-search">
+    <div class="ete-sidebar-search-wrapper">
+        <svg class="ete-sidebar-search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="ete-input ete-sidebar-search-input" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', attr: {placeholder: $t('Search by title')}" autocomplete="off"/>
+    </div>
+</div>
+<div class="ete-sidebar-filters">
+    <button class="ete-sidebar-filter-btn" data-bind="click: function() { setFilter('all'); }, css: {'ete-active': filterMode() === 'all'}">
+        <span data-bind="i18n: 'All'"></span>
+        <span class="ete-sidebar-filter-count" data-bind="text: templateCount().total"></span>
+    </button>
+    <button class="ete-sidebar-filter-btn" data-bind="click: function() { setFilter('customized'); }, css: {'ete-active': filterMode() === 'customized'}">
+        <span data-bind="i18n: 'Customized'"></span>
+        <span class="ete-sidebar-filter-count" data-bind="text: templateCount().customized"></span>
+    </button>
+    <button class="ete-sidebar-filter-btn" data-bind="click: function() { setFilter('defaults'); }, css: {'ete-active': filterMode() === 'defaults'}">
+        <span data-bind="i18n: 'Default'"></span>
+        <span class="ete-sidebar-filter-count" data-bind="text: templateCount().defaults"></span>
+    </button>
+</div>
+<div class="ete-sidebar-tree" data-bind="foreach: filteredGroups">
+    <div class="ete-sidebar-group">
+        <div class="ete-sidebar-group-header" data-bind="click: $parent.toggleGroup.bind($parent, $data)">
+            <span class="ete-sidebar-group-icon" data-bind="css: {'ete-expanded': $parent.isGroupExpanded($data.key)}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+            <svg class="ete-sidebar-folder-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="ete-sidebar-group-name" data-bind="text: label"></span>
+            <span class="ete-sidebar-count" data-bind="text: '(' + templates.length + ')'"></span>
+        </div>
+        <div class="ete-sidebar-group-items" data-bind="visible: $parent.isGroupExpanded($data.key), foreach: templates">
+            <div class="ete-sidebar-tpl" data-bind="css: {'ete-active': id === $parents[1].activeId() && !$parents[1].activeOverrideId(), 'ete-has-overrides': overrides.length > 0}">
+                <div class="ete-sidebar-tpl-header" data-bind="click: function(d, e) { $parents[1].selectTemplate($data);$parents[1].expandTemplate($data.id); }">
+                    <!-- ko if: overrides.length > 0 -->
+                    <span class="ete-sidebar-tpl-icon" data-bind="click: function(d, e) { e.stopPropagation(); $parents[1].toggleTemplate(d); }, css: {'ete-expanded': $parents[1].isTemplateExpanded(id)}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: overrides.length > 0 -->
+                    <span class="ete-sidebar-tpl-icon-spacer"></span>
+                    <!-- /ko -->
+                    <svg class="ete-sidebar-doc-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <span class="ete-sidebar-item-label" data-bind="text: label"></span>
+                    <!-- ko if: overrides.length > 0 -->
+                    <span class="ete-sidebar-tpl-dot" data-bind="css: 'ete-dot-' + overrides[0].status"></span>
+                    <!-- /ko -->
+                    <span class="ete-sidebar-tpl-add" data-bind="click: function(d, e) { e.stopPropagation(); $parents[1].createDraftFor(d); }" title="Create draft">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </span>
+                </div>
+                <!-- ko if: overrides.length > 0 -->
+                <div class="ete-sidebar-tpl-children" data-bind="visible: $parents[1].isTemplateExpanded(id), foreach: overrides">
+                    <div class="ete-sidebar-override" data-bind="click: function(d, e) { e.stopPropagation(); $parents[2].selectOverride($data, $parent); }, css: {'ete-override-active': entity_id === $parents[2].activeOverrideId(), 'ete-override-disabled': is_active === false}">
+                        <span class="ete-sidebar-override-dot" data-bind="css: 'ete-dot-' + status + (is_active === false ? ' ete-dot-disabled' : '')" data-bind-title="status"></span>
+                        <div class="ete-sidebar-override-info">
+                            <span class="ete-sidebar-override-label" data-bind="text: label"></span>
+                            <!-- ko if: active_from || active_to -->
+                            <span class="ete-sidebar-override-schedule-label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <!-- ko if: active_from --><span data-bind="text: $parents[2].formatDate(active_from)"></span><!-- /ko -->
+                                <!-- ko if: active_from && active_to --><span>&rarr;</span><!-- /ko -->
+                                <!-- ko if: active_to --><span data-bind="text: $parents[2].formatDate(active_to)"></span><!-- /ko -->
+                            </span>
+                            <!-- /ko -->
+                            <span class="ete-sidebar-override-meta">
+                                <!-- ko if: last_edited_by --><span class="ete-sidebar-override-user" data-bind="text: last_edited_by"></span><!-- /ko -->
+                                <!-- ko if: updated_at --><span class="ete-sidebar-override-date" data-bind="text: $parents[2].formatDate(updated_at)"></span><!-- /ko -->
+                            </span>
+                        </div>
+                        <div class="ete-sidebar-override-actions">
+                            <!-- ko if: status === 'published' -->
+                            <span class="ete-sidebar-override-schedule" data-bind="click: function(d, e) { e.stopPropagation(); $parents[2].editSchedule($data, $parent); }" title="Edit Schedule">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </span>
+                            <!-- /ko -->
+                            <span class="ete-sidebar-override-rename" data-bind="click: function(d, e) { e.stopPropagation(); $parents[2].renameOverride($data); }" title="Rename">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                            </span>
+                            <span class="ete-sidebar-override-delete" data-bind="click: function(d, e) { e.stopPropagation(); $parents[2].deleteOverride($data); }" title="Delete">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

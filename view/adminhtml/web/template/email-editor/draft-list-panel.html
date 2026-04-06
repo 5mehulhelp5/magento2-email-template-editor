@@ -1,0 +1,29 @@
+<!-- Draft List Panel -->
+<div class="ete-draft-list" data-bind="visible: drafts().length > 0">
+    <div class="ete-draft-list-header">
+        <span class="ete-draft-list-title" data-bind="i18n: 'Drafts'"></span>
+        <button class="ete-btn ete-btn-sm ete-btn-secondary" data-bind="click: createDraft">+ <span data-bind="i18n: 'New Draft'"></span></button>
+    </div>
+    <div class="ete-draft-cards" data-bind="foreach: drafts">
+        <div class="ete-draft-card" data-bind="css: {'ete-active': $data.entity_id === $parent.activeDraftId()}">
+            <div class="ete-draft-card-header" data-bind="click: $parent.selectDraft.bind($parent, $data)">
+                <span class="ete-draft-card-name" data-bind="text: $data.draft_name || $t('Untitled Draft')"></span>
+                <span class="ete-badge-sm" data-bind="text: $data.status, css: 'ete-badge-' + $data.status"></span>
+            </div>
+            <div class="ete-draft-card-meta">
+                <!-- ko if: $data.created_by_username -->
+                <span class="ete-draft-card-user"><span data-bind="i18n: 'Created by'"></span>: <span data-bind="text: $data.created_by_username"></span></span>
+                <!-- /ko -->
+                <!-- ko if: $data.last_edited_by -->
+                <span class="ete-draft-card-user"><span data-bind="i18n: 'Modified by'"></span>: <span data-bind="text: $data.last_edited_by"></span></span>
+                <!-- /ko -->
+                <span data-bind="text: $data.updated_at, visible: $data.updated_at" class="ete-draft-card-date"></span>
+            </div>
+            <div class="ete-draft-card-actions">
+                <button class="ete-btn ete-btn-xs ete-btn-secondary" data-bind="click: $parent.renameDraft.bind($parent, $data)"><span data-bind="i18n: 'Rename'"></span></button>
+                <button class="ete-btn ete-btn-xs ete-btn-secondary" data-bind="click: $parent.duplicateDraft.bind($parent, $data)"><span data-bind="i18n: 'Duplicate'"></span></button>
+                <button class="ete-btn ete-btn-xs ete-btn-danger" data-bind="click: $parent.deleteDraft.bind($parent, $data)"><span data-bind="i18n: 'Delete'"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

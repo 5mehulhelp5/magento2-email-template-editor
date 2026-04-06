@@ -1,0 +1,32 @@
+{
+    "name": "hryvinskyi/magento2-email-template-editor",
+    "description": "Advanced email template editor with live preview for Magento 2",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Volodymyr Hryvinskyi",
+            "email": "volodymyr@hryvinskyi.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "hryvinskyi/magento2-base": "*",
+        "hryvinskyi/magento2-configuration-fields": "*",
+        "magento/module-email": "*",
+        "magento/module-variable": "*",
+        "magento/module-sales": "*",
+        "magento/module-customer": "*",
+        "magento/module-store": "*",
+        "magento/module-ui": "*",
+        "magento/module-backend": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Hryvinskyi\\EmailTemplateEditor\\": ""
+        }
+    }
+}

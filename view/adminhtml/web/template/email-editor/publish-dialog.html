@@ -1,0 +1,73 @@
+<!-- Publish Dialog Modal -->
+<div class="ete-modal" data-bind="visible: isVisible">
+    <div class="ete-modal-content">
+        <div class="ete-modal-header">
+            <span class="ete-modal-title" data-bind="i18n: 'Publish Template'"></span>
+            <button class="ete-modal-close" data-bind="click: close">&times;</button>
+        </div>
+        <div class="ete-modal-body">
+            <!-- Publishing Context -->
+            <!-- ko if: templateName() || targetStore() -->
+            <div class="ete-publish-context">
+                <!-- ko if: templateName() -->
+                <div class="ete-publish-context-item">
+                    <span class="ete-publish-context-label" data-bind="i18n: 'Template:'"></span>
+                    <span class="ete-publish-context-value" data-bind="text: templateName"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: targetStore() -->
+                <div class="ete-publish-context-item">
+                    <span class="ete-publish-context-label" data-bind="i18n: 'Store View:'"></span>
+                    <span class="ete-publish-context-value" data-bind="text: targetStore"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+
+            <!-- Changes Summary -->
+            <!-- ko if: changesSummary().length > 0 -->
+            <div class="ete-publish-changes" style="display: none">
+                <label class="ete-label" data-bind="i18n: 'Changes'"></label>
+                <div class="ete-publish-changes-list">
+                    <!-- ko foreach: changesSummary -->
+                    <div class="ete-publish-change-item" data-bind="css: 'ete-change-' + type">
+                        <span class="ete-publish-change-icon" data-bind="html: icon"></span>
+                        <span class="ete-publish-change-label" data-bind="text: label"></span>
+                        <!-- ko if: detail -->
+                        <span class="ete-publish-change-detail" data-bind="text: detail"></span>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+
+            <label class="ete-label" data-bind="i18n: 'Version Comment'"></label>
+            <input type="text" class="ete-input" data-bind="value: comment, attr: {placeholder: $t('Describe the changes...')}"/>
+
+            <label class="ete-label" data-bind="i18n: 'Schedule'"></label>
+            <select class="ete-select ete-select-full" data-bind="value: scheduleMode">
+                <option value="immediately" data-bind="i18n: 'Immediately'"></option>
+                <option value="scheduled" data-bind="i18n: 'Schedule for later...'"></option>
+            </select>
+            <div data-bind="visible: scheduleMode() === 'scheduled'" style="margin-top: 8px;">
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'Active From'"></label>
+                    <input type="text" class="ete-input ete-schedule-from-input" data-bind="value: scheduleFrom, attr: {placeholder: $t('Start date...')}"/>
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for immediate activation.'"></p>
+                </div>
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'Active To'"></label>
+                    <input type="text" class="ete-input ete-schedule-to-input" data-bind="value: scheduleTo, attr: {placeholder: $t('End date...')}"/>
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for no expiration.'"></p>
+                </div>
+            </div>
+
+            <div class="ete-publish-feedback" data-bind="visible: feedbackMessage() !== '', text: feedbackMessage, css: {'ete-error': hasError}"></div>
+        </div>
+        <div class="ete-modal-footer">
+            <button class="ete-btn ete-btn-secondary" data-bind="click: close"><span data-bind="i18n: 'Cancel'"></span></button>
+            <button class="ete-btn ete-btn-primary" data-bind="click: confirm"><span data-bind="i18n: 'Publish'"></span></button>
+        </div>
+    </div>
+</div>

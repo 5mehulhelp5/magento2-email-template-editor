@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+
+declare(strict_types=1);
+
+namespace Hryvinskyi\EmailTemplateEditor\Api;
+
+interface TemplateRendererInterface
+{
+    /**
+     * Render an email template with variables and optional CSS
+     *
+     * @param string $content Template content (HTML with Magento directives)
+     * @param array<string, mixed> $variables Template variables for rendering
+     * @param int $storeId Store ID for store emulation
+     * @param string|null $customCss User-written custom CSS
+     * @param string|null $tailwindCss Auto-generated Tailwind CSS
+     * @param string|null $templateIdentifier Template identifier for context-aware rendering
+     * @param bool $isMockData When true, layout directives are replaced with placeholders
+     * @return string Rendered HTML with inlined CSS
+     */
+    public function render(
+        string $content,
+        array $variables,
+        int $storeId,
+        ?string $customCss = null,
+        ?string $tailwindCss = null,
+        ?string $templateIdentifier = null,
+        bool $isMockData = false
+    ): string;
+}

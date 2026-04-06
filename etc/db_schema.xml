@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="hryvinskyi_email_theme" resource="default" engine="innodb" comment="Email Theme">
+        <column xsi:type="int" name="theme_id" unsigned="true" nullable="false" identity="true"
+                comment="Theme ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Theme Name"/>
+        <column xsi:type="mediumtext" name="theme_json" nullable="false" comment="Theme JSON Configuration"/>
+        <column xsi:type="smallint" name="is_default" unsigned="true" nullable="false" default="0"
+                comment="Is Default Theme"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="theme_id"/>
+        </constraint>
+        <index referenceId="HRYVINSKYI_EMAIL_THEME_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="HRYVINSKYI_EMAIL_THEME_IS_DEFAULT" indexType="btree">
+            <column name="is_default"/>
+        </index>
+    </table>
+
+    <table name="hryvinskyi_email_template_override" resource="default" engine="innodb"
+           comment="Email Template Override">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="template_identifier" nullable="false" length="255"
+                comment="Template Identifier"/>
+        <column xsi:type="mediumtext" name="template_content" nullable="false"
+                comment="Template Content"/>
+        <column xsi:type="varchar" name="template_subject" nullable="true" length="255"
+                comment="Template Subject"/>
+        <column xsi:type="mediumtext" name="custom_css" nullable="true"
+                comment="User-Written Custom CSS"/>
+        <column xsi:type="mediumtext" name="tailwind_css" nullable="true"
+                comment="Auto-Generated Tailwind CSS"/>
+        <column xsi:type="int" name="theme_id" unsigned="true" nullable="true"
+                comment="Theme ID"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="20" default="draft"
+                comment="Override Status"/>
+        <column xsi:type="datetime" name="scheduled_at" nullable="true"
+                comment="Scheduled Publish DateTime"/>
+        <column xsi:type="text" name="version_comment" nullable="true"
+                comment="Version Comment for Scheduled Publish"/>
+        <column xsi:type="int" name="created_by_user_id" unsigned="true" nullable="true"
+                comment="Admin User ID Who Created Draft"/>
+        <column xsi:type="varchar" name="created_by_username" nullable="true" length="255"
+                comment="Admin Username Who Created Draft"/>
+        <column xsi:type="int" name="last_edited_by_user_id" unsigned="true" nullable="true"
+                comment="Admin User ID Who Last Edited"/>
+        <column xsi:type="varchar" name="last_edited_by_username" nullable="true" length="255"
+                comment="Admin Username Who Last Edited"/>
+        <column xsi:type="datetime" name="last_edited_at" nullable="true"
+                comment="Last Edited DateTime"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="HRYVINSKYI_EMAIL_TPL_OVERRIDE_THEME_ID_EMAIL_THEME_THEME_ID"
+                    table="hryvinskyi_email_template_override" column="theme_id"
+                    referenceTable="hryvinskyi_email_theme" referenceColumn="theme_id"
+                    onDelete="SET NULL"/>
+        <column xsi:type="varchar" name="draft_name" nullable="true" length="255"
+                comment="Human-Readable Draft Label"/>
+        <column xsi:type="datetime" name="active_from" nullable="true"
+                comment="Schedule Start DateTime"/>
+        <column xsi:type="datetime" name="active_to" nullable="true"
+                comment="Schedule End DateTime"/>
+        <column xsi:type="smallint" name="is_active" unsigned="true" nullable="false" default="1"
+                comment="Is Override Active"/>
+        <index referenceId="HRYVINSKYI_EMAIL_TPL_OVERRIDE_TEMPLATE_IDENT_STORE_STATUS" indexType="btree">
+            <column name="template_identifier"/>
+            <column name="store_id"/>
+            <column name="status"/>
+        </index>
+        <index referenceId="HRYVINSKYI_EMAIL_TPL_OVERRIDE_STATUS_SCHEDULED_AT" indexType="btree">
+            <column name="status"/>
+            <column name="scheduled_at"/>
+        </index>
+        <index referenceId="HRYVINSKYI_EMAIL_TPL_OVERRIDE_IDENT_STORE_ACTIVE" indexType="btree">
+            <column name="template_identifier"/>
+            <column name="store_id"/>
+            <column name="active_from"/>
+            <column name="active_to"/>
+        </index>
+    </table>
+
+    <table name="hryvinskyi_email_template_version" resource="default" engine="innodb"
+           comment="Email Template Version History">
+        <column xsi:type="int" name="version_id" unsigned="true" nullable="false" identity="true"
+                comment="Version ID"/>
+        <column xsi:type="varchar" name="template_identifier" nullable="false" length="255"
+                comment="Template Identifier"/>
+        <column xsi:type="int" name="version_number" unsigned="true" nullable="false"
+                comment="Version Number"/>
+        <column xsi:type="mediumtext" name="template_content" nullable="false"
+                comment="Template Content Snapshot"/>
+        <column xsi:type="varchar" name="template_subject" nullable="true" length="255"
+                comment="Template Subject Snapshot"/>
+        <column xsi:type="mediumtext" name="custom_css" nullable="true"
+                comment="Custom CSS Snapshot"/>
+        <column xsi:type="mediumtext" name="tailwind_css" nullable="true"
+                comment="Tailwind CSS Snapshot"/>
+        <column xsi:type="int" name="theme_id" unsigned="true" nullable="true"
+                comment="Theme ID"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="text" name="version_comment" nullable="true"
+                comment="Version Comment"/>
+        <column xsi:type="int" name="admin_user_id" unsigned="true" nullable="true"
+                comment="Admin User ID Who Published"/>
+        <column xsi:type="varchar" name="admin_username" nullable="true" length="255"
+                comment="Admin Username Who Published"/>
+        <column xsi:type="timestamp" name="published_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Published At"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="version_id"/>
+        </constraint>
+        <index referenceId="HRYVINSKYI_EMAIL_TPL_VERSION_IDENT_STORE_NUM" indexType="btree">
+            <column name="template_identifier"/>
+            <column name="store_id"/>
+            <column name="version_number"/>
+        </index>
+        <index referenceId="HRYVINSKYI_EMAIL_TPL_VERSION_IDENT_STORE" indexType="btree">
+            <column name="template_identifier"/>
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

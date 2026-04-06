@@ -1,0 +1,317 @@
+<!-- Email Template Editor Main Layout -->
+<div class="ete-editor-wrapper">
+
+    <!-- Loading Indicator -->
+    <div class="ete-loading-overlay" data-bind="visible: isInitialLoading">
+        <div class="ete-spinner"></div>
+        <span data-bind="i18n: 'Loading editor...'"></span>
+    </div>
+
+    <!-- Top Toolbar -->
+    <div class="ete-toolbar">
+        <!-- ko template: 'Hryvinskyi_EmailTemplateEditor/email-editor/toolbar' --><!-- /ko -->
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="ete-main">
+
+        <!-- Left Sidebar: Template Tree -->
+        <div class="ete-sidebar">
+            <!-- ko foreach: getRegion('templateSidebar') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+
+        <!-- Editor Panels Container -->
+        <div class="ete-panels-container">
+
+            <!-- Editor Panel -->
+            <div class="ete-panel-left" data-bind="attr: {id: 'ete-panel-left'}">
+
+                <!-- Draft List Panel -->
+                <!-- ko foreach: getRegion('draftListPanel') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+
+                <!-- Custom Data Section -->
+                <div class="ete-section" data-bind="visible: showCustomData">
+                    <div class="ete-section-header" data-bind="click: function() { customDataCollapsed(!customDataCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Custom Data'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: customDataCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !customDataCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !customDataCollapsed()">
+                        <div class="ete-custom-data-hint">
+                            <span data-bind="i18n: 'Enter template variables as JSON. These will be merged with base store variables.'"></span>
+                        </div>
+                        <textarea class="ete-custom-data-textarea" data-bind="value: customDataJson, valueUpdate: 'afterkeydown'" placeholder='{"customer_name": "John Doe", "order_id": "100000001"}'></textarea>
+                    </div>
+                </div>
+
+                <!-- Subject Line -->
+                <div class="ete-subject-row">
+                    <label class="ete-toolbar-label" data-bind="i18n: 'Subject:'"></label>
+                    <input type="text" class="ete-input" data-bind="value: subject, valueUpdate: 'afterkeydown', attr: {placeholder: $t('Email subject line...')}"/>
+                </div>
+
+                <!-- Template Section -->
+                <div class="ete-section ete-section-template">
+                    <div class="ete-section-header" data-bind="click: function() { templateCollapsed(!templateCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Template'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: templateCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !templateCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !templateCollapsed()">
+                        <!-- ko foreach: getRegion('templateEditor') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+
+                <!-- Custom CSS Section -->
+                <div class="ete-section">
+                    <div class="ete-section-header" data-bind="click: function() { cssCollapsed(!cssCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Custom CSS'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: cssCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !cssCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !cssCollapsed()">
+                        <!-- ko foreach: getRegion('customCssEditor') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+
+                <!-- Theme Section -->
+                <div class="ete-section">
+                    <div class="ete-section-header" data-bind="click: function() { themeCollapsed(!themeCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Theme'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: themeCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !themeCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !themeCollapsed()">
+                        <!-- ko foreach: getRegion('themeEditor') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+
+                <!-- Generated Tailwind CSS Section -->
+                <div class="ete-section">
+                    <div class="ete-section-header" data-bind="click: function() { tailwindCollapsed(!tailwindCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Generated Tailwind CSS'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: tailwindCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !tailwindCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !tailwindCollapsed()">
+                        <pre class="ete-tailwind-output" data-bind="text: tailwindCssOutput"></pre>
+                    </div>
+                </div>
+
+                <!-- Schedule Section -->
+                <div class="ete-section">
+                    <div class="ete-section-header" data-bind="click: function() { scheduleCollapsed(!scheduleCollapsed()); }">
+                        <span class="ete-section-title" data-bind="i18n: 'Schedule'"></span>
+                        <span class="ete-section-toggle">
+                            <svg data-bind="visible: scheduleCollapsed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            <svg data-bind="visible: !scheduleCollapsed()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="ete-section-body" data-bind="visible: !scheduleCollapsed()">
+                        <!-- ko foreach: getRegion('schedulePanel') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resizer -->
+            <div class="ete-resizer" data-bind="event: {mousedown: startResize}"></div>
+
+            <!-- Right Panel: Preview -->
+            <div class="ete-panel-right">
+                <!-- ko foreach: getRegion('previewPanel') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Variable Chooser Panel -->
+    <!-- ko foreach: getRegion('variableChooser') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- Status Bar -->
+    <div class="ete-status-bar">
+        <span data-bind="text: statusBarText"></span>
+    </div>
+
+    <!-- Publish Dialog -->
+    <!-- ko foreach: getRegion('publishDialog') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- Version History Modal -->
+    <!-- ko foreach: getRegion('versionHistory') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- Schedule Modal -->
+    <!-- ko foreach: getRegion('schedulePanel') -->
+    <div class="ete-modal" data-bind="visible: showModal">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header">
+                <span class="ete-modal-title" data-bind="i18n: 'Set Schedule'"></span>
+                <button class="ete-modal-close" data-bind="click: closeModal">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'Start Date'"></label>
+                    <input type="text" class="ete-input ete-schedule-modal-from" data-bind="value: modalFrom" />
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for immediate activation.'"></p>
+                </div>
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'End Date'"></label>
+                    <input type="text" class="ete-input ete-schedule-modal-to" data-bind="value: modalTo" />
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for no expiration.'"></p>
+                </div>
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-secondary" data-bind="click: closeModal"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn ete-btn-primary" data-bind="click: applySchedule"><span data-bind="i18n: 'Apply Schedule'"></span></button>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- Edit Schedule Modal (for published overrides from sidebar) -->
+    <div class="ete-modal ete-edit-schedule-modal" data-bind="visible: showEditScheduleModal">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header">
+                <span class="ete-modal-title">
+                    <span data-bind="i18n: 'Edit Schedule'"></span>
+                    <!-- ko if: editScheduleOverrideLabel() -->
+                    <span class="ete-modal-subtitle" data-bind="text: '— ' + editScheduleOverrideLabel()"></span>
+                    <!-- /ko -->
+                </span>
+                <button class="ete-modal-close" data-bind="click: closeEditScheduleModal">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'Start Date'"></label>
+                    <input type="text" class="ete-input ete-edit-schedule-from" data-bind="value: editScheduleFrom" />
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for immediate activation.'"></p>
+                </div>
+                <div class="ete-schedule-modal-field">
+                    <label class="ete-label" data-bind="i18n: 'End Date'"></label>
+                    <input type="text" class="ete-input ete-edit-schedule-to" data-bind="value: editScheduleTo" />
+                    <p class="ete-help-text" data-bind="i18n: 'Leave empty for no expiration.'"></p>
+                </div>
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-danger" data-bind="click: removeEditSchedule, visible: editScheduleFrom() || editScheduleTo()"><span data-bind="i18n: 'Remove Schedule'"></span></button>
+                <span style="flex: 1;"></span>
+                <button class="ete-btn ete-btn-secondary" data-bind="click: closeEditScheduleModal"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn ete-btn-primary" data-bind="click: applyEditSchedule"><span data-bind="i18n: 'Save Schedule'"></span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Test Email Dialog -->
+    <div class="ete-modal ete-send-test-modal" data-bind="visible: sendTestEmailVisible">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header">
+                <span class="ete-modal-title" data-bind="i18n: 'Send Test Email'"></span>
+                <button class="ete-modal-close" data-bind="click: closeSendTestEmailDialog">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <p class="ete-send-test-hint" data-bind="i18n: 'Send the current template preview to an email address to verify rendering in real email clients.'"></p>
+                <label class="ete-label" data-bind="i18n: 'Recipient Email'"></label>
+                <input type="email" class="ete-input" data-bind="value: sendTestEmailAddress, attr: {placeholder: $t('Enter email address...')}, event: {keydown: sendTestEmailKeydown}" autocomplete="email"/>
+                <!-- ko if: sendTestEmailFeedback() -->
+                <div class="ete-publish-feedback" data-bind="text: sendTestEmailFeedback, css: {'ete-error': sendTestEmailHasError(), 'ete-success': !sendTestEmailHasError()}"></div>
+                <!-- /ko -->
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-secondary" data-bind="click: closeSendTestEmailDialog"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn ete-btn-primary" data-bind="click: sendTestEmail, enable: !sendTestEmailSending()">
+                    <!-- ko if: sendTestEmailSending() -->
+                    <span class="ete-spinner-sm"></span>
+                    <!-- /ko -->
+                    <span data-bind="i18n: 'Send'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="ete-modal ete-confirm-modal" data-bind="visible: confirmModalVisible">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header" data-bind="css: 'ete-confirm-' + confirmModalType()">
+                <span class="ete-modal-title" data-bind="text: confirmModalTitle"></span>
+                <button class="ete-modal-close" data-bind="click: cancelConfirm">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <p class="ete-confirm-message" data-bind="text: confirmModalMessage"></p>
+                <!-- ko if: confirmModalDetail() -->
+                <div class="ete-confirm-detail" data-bind="html: confirmModalDetail"></div>
+                <!-- /ko -->
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-secondary" data-bind="click: cancelConfirm"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn" data-bind="click: acceptConfirm, css: confirmModalType() === 'danger' ? 'ete-btn-danger' : 'ete-btn-primary'">
+                    <span data-bind="text: confirmModalAction"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Import Modal -->
+    <!-- ko foreach: getRegion('themeEditor') -->
+    <div class="ete-modal" data-bind="visible: showImportModal">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header">
+                <span class="ete-modal-title" data-bind="i18n: 'Import Theme'"></span>
+                <button class="ete-modal-close" data-bind="click: closeImportModal">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <input type="file" accept=".json" data-bind="event: {change: onImportFileSelect}"/>
+                <p class="ete-help-text" data-bind="i18n: 'Select a JSON theme file to import.'"></p>
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-secondary" data-bind="click: closeImportModal"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn ete-btn-primary" data-bind="click: confirmImport"><span data-bind="i18n: 'Import'"></span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Theme Modal -->
+    <div class="ete-modal" data-bind="visible: showAddModal">
+        <div class="ete-modal-content">
+            <div class="ete-modal-header">
+                <span class="ete-modal-title" data-bind="i18n: 'New Theme'"></span>
+                <button class="ete-modal-close" data-bind="click: closeAddModal">&times;</button>
+            </div>
+            <div class="ete-modal-body">
+                <label class="ete-label" data-bind="i18n: 'Theme Name'"></label>
+                <input type="text" class="ete-input" data-bind="value: newThemeName, attr: {placeholder: $t('Enter theme name...')}"/>
+            </div>
+            <div class="ete-modal-footer">
+                <button class="ete-btn ete-btn-secondary" data-bind="click: closeAddModal"><span data-bind="i18n: 'Cancel'"></span></button>
+                <button class="ete-btn ete-btn-primary" data-bind="click: confirmAdd"><span data-bind="i18n: 'Create'"></span></button>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

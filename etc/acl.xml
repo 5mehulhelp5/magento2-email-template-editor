@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::marketing">
+                    <resource id="Hryvinskyi_EmailTemplateEditor::email_editor"
+                              title="Email Template Editor" sortOrder="90">
+                        <resource id="Hryvinskyi_EmailTemplateEditor::editor"
+                                  title="Editor" sortOrder="10"/>
+                        <resource id="Hryvinskyi_EmailTemplateEditor::themes"
+                                  title="Themes" sortOrder="20"/>
+                        <resource id="Hryvinskyi_EmailTemplateEditor::history"
+                                  title="History" sortOrder="30"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Hryvinskyi_EmailTemplateEditor::email_editor"
+             title="Email Template Editor"
+             module="Hryvinskyi_EmailTemplateEditor"
+             parent="Magento_Backend::marketing_communications"
+             action="emaileditor/editor/index"
+             resource="Hryvinskyi_EmailTemplateEditor::email_editor"
+             sortOrder="20"/>
+    </menu>
+</config>

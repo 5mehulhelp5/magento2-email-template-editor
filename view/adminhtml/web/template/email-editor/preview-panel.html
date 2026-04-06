@@ -1,0 +1,27 @@
+<!-- Preview Panel -->
+<div class="ete-preview-header">
+    <span class="ete-preview-title" data-bind="i18n: 'Preview'"></span>
+    <div class="ete-preview-controls">
+        <button class="ete-icon-btn" data-bind="click: setDesktop, css: {'ete-active': !isMobile}" title="Desktop View">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </button>
+        <button class="ete-icon-btn" data-bind="click: setMobile, css: {'ete-active': isMobile}" title="Mobile View">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </button>
+        <button class="ete-icon-btn" data-bind="click: refresh" title="Refresh Preview (Ctrl+Enter)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </button>
+        <span class="ete-toolbar-separator"></span>
+        <button class="ete-icon-btn ete-btn-send-test" data-bind="click: sendTestEmail" title="Send Test Email (Ctrl+Shift+E)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span data-bind="i18n: 'Send Test'"></span>
+        </button>
+    </div>
+</div>
+<div class="ete-preview-body">
+    <div class="ete-loading" data-bind="visible: isLoading">
+        <div class="ete-spinner"></div>
+        <span data-bind="i18n: 'Rendering preview...'"></span>
+    </div>
+    <iframe class="ete-preview-iframe" data-bind="css: {'ete-mobile': isMobile}, attr: {srcdoc: content}" sandbox="allow-same-origin"></iframe>
+</div>

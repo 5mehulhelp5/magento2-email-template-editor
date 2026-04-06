@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+
+declare(strict_types=1);
+
+/** @var \Hryvinskyi\EmailTemplateEditor\Block\Adminhtml\Editor $block */
+$editorConfig = json_decode($block->getEditorConfig(), true);
+$jsLayout = $block->getJsLayout() ? json_decode($block->getJsLayout(), true) : [];
+$componentConfig = array_merge($editorConfig, $jsLayout);
+$componentConfig['component'] = 'Hryvinskyi_EmailTemplateEditor/js/email-editor';
+$componentJson = (string)json_encode($componentConfig, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+?>
+
+<script>
+    window.emailEditorConfig = <?= /* @noEscape */ json_encode([
+        'urls' => $editorConfig['urls'],
+        'formKey' => $editorConfig['formKey'],
+        'storeId' => $editorConfig['storeId'],
+    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+</script>
+
+<div id="email-template-editor" data-bind="scope: 'emailTemplateEditor'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "emailTemplateEditor": <?= /* @noEscape */ $componentJson ?>
+            }
+        }
+    }
+}
+</script>

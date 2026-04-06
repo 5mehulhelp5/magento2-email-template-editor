@@ -1,0 +1,94 @@
+<!-- Variable Chooser Panel -->
+<div class="ete-variable-panel" data-bind="visible: isOpen">
+    <!-- Header -->
+    <div class="ete-variable-panel-header">
+        <div class="ete-variable-panel-title-row">
+            <svg class="ete-variable-panel-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            <span class="ete-variable-panel-title" data-bind="i18n: 'Insert Variable'"></span>
+            <span class="ete-variable-panel-count" data-bind="text: totalCount() + ' ' + $t('variables'), visible: totalCount() > 0"></span>
+            <button type="button" class="ete-variable-panel-close" data-bind="click: close" title="Close (Esc)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="ete-variable-panel-search">
+            <svg class="ete-variable-panel-search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="ete-variable-panel-search-input" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', attr: {placeholder: $t('Search variables...')}" autocomplete="off"/>
+            <!-- ko if: searchQuery() -->
+            <button type="button" class="ete-variable-panel-search-clear" data-bind="click: clearSearch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="ete-variable-panel-loading" data-bind="visible: isLoading">
+        <div class="ete-spinner"></div>
+        <span data-bind="i18n: 'Loading variables...'"></span>
+    </div>
+
+    <!-- Body -->
+    <div class="ete-variable-panel-body" data-bind="visible: !isLoading()">
+        <!-- Empty state -->
+        <!-- ko if: filteredGroups().length === 0 && !isLoading() -->
+        <div class="ete-variable-panel-empty">
+            <!-- ko if: searchQuery() -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e3e3e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span data-bind="i18n: 'No variables match your search'"></span>
+            <button class="ete-variable-panel-empty-action" data-bind="click: clearSearch, i18n: 'Clear search'"></button>
+            <!-- /ko -->
+            <!-- ko ifnot: searchQuery() -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e3e3e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            <span data-bind="i18n: 'No variables available'"></span>
+            <span class="ete-variable-panel-empty-hint" data-bind="i18n: 'Select a template first to see its variables.'"></span>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+
+        <!-- Recently Used -->
+        <!-- ko if: recentVariables().length > 0 && !searchQuery() -->
+        <div class="ete-variable-group ete-variable-group-recent">
+            <div class="ete-variable-group-header" data-bind="click: function() { recentCollapsed(!recentCollapsed()); }">
+                <svg class="ete-variable-group-chevron" data-bind="css: {'ete-expanded': !recentCollapsed()}" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <svg class="ete-variable-group-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="ete-variable-group-label" data-bind="i18n: 'Recently Used'"></span>
+                <span class="ete-variable-group-count" data-bind="text: recentVariables().length"></span>
+            </div>
+            <div class="ete-variable-group-items" data-bind="visible: !recentCollapsed(), foreach: recentVariables">
+                <div class="ete-variable-item" data-bind="click: $parent.onVariableClick.bind($parent, $data), attr: {title: value}">
+                    <code class="ete-variable-code" data-bind="text: value"></code>
+                    <!-- ko if: label -->
+                    <span class="ete-variable-label" data-bind="text: label"></span>
+                    <!-- /ko -->
+                    <span class="ete-variable-insert-hint" data-bind="i18n: 'Click to insert'"></span>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- Variable Groups -->
+        <!-- ko foreach: filteredGroups -->
+        <div class="ete-variable-group">
+            <div class="ete-variable-group-header" data-bind="click: function() { $parent.toggleGroup($data); }">
+                <svg class="ete-variable-group-chevron" data-bind="css: {'ete-expanded': $parent.isGroupExpanded($data)}" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="ete-variable-group-label" data-bind="text: label"></span>
+                <span class="ete-variable-group-count" data-bind="text: variables.length"></span>
+            </div>
+            <div class="ete-variable-group-items" data-bind="visible: $parent.isGroupExpanded($data), foreach: variables">
+                <div class="ete-variable-item" data-bind="click: $parents[1].onVariableClick.bind($parents[1], $data), attr: {title: value}">
+                    <code class="ete-variable-code" data-bind="text: value"></code>
+                    <!-- ko if: label -->
+                    <span class="ete-variable-label" data-bind="text: label"></span>
+                    <!-- /ko -->
+                    <span class="ete-variable-insert-hint" data-bind="i18n: 'Click to insert'"></span>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <!-- Footer hint -->
+    <div class="ete-variable-panel-footer" data-bind="visible: !isLoading()">
+        <span data-bind="i18n: 'Click a variable to insert it at the cursor position'"></span>
+    </div>
+</div>

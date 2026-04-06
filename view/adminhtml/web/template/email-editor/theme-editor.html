@@ -1,0 +1,11 @@
+<!-- Theme Editor -->
+<div class="ete-theme-tags" data-bind="foreach: themes">
+    <button class="ete-theme-tag" data-bind="text: name, click: $parent.selectTheme.bind($parent, $data), css: {'ete-active': $data.theme_id === $parent.currentThemeId()}"></button>
+</div>
+<div class="ete-editor-toolbar">
+    <button class="ete-icon-btn" data-bind="click: importTheme" title="Import Theme"><span data-bind="i18n: 'Import'"></span></button>
+    <button class="ete-icon-btn" data-bind="click: exportTheme" title="Export Theme"><span data-bind="i18n: 'Export'"></span></button>
+    <button class="ete-icon-btn" data-bind="click: addTheme" title="Add Theme">+ <span data-bind="i18n: 'Add'"></span></button>
+    <button class="ete-icon-btn ete-btn-danger-icon" data-bind="click: deleteTheme" title="Delete Theme"><span data-bind="i18n: 'Delete'"></span></button>
+</div>
+<div class="ete-codemirror-container" data-bind="afterRender: initCodeMirror"></div>

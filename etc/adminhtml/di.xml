@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Admin Edit Redirect Plugin: Redirect Magento's template edit to our editor -->
+    <type name="Magento\Email\Controller\Adminhtml\Email\Template\Edit">
+        <plugin name="hryvinskyi_email_editor_redirect"
+                type="Hryvinskyi\EmailTemplateEditor\Plugin\AdminEditControllerPlugin"
+                sortOrder="10"/>
+    </type>
+</config>

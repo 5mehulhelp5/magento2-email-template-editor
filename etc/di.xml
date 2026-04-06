@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Data Interface Preferences -->
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\Data\ThemeInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\Theme"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\Data\TemplateOverrideInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateOverride"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\Data\TemplateVersionInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateVersion"/>
+
+    <!-- Service Interface Preferences -->
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\ConfigInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\Config"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\ThemeRepositoryInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\ThemeRepository"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateOverrideRepositoryInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateOverrideRepository"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateVersionRepositoryInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateVersionRepository"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplatePublisherInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplatePublisher"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateLoaderInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateLoader"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateRendererInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateRenderer"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateAreaResolverInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\TemplateAreaResolver"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\CssInlinerInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\CssInliner"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\CssVariableResolverInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\CssVariableResolver"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\PluginBypassFlagInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\PluginBypassFlag"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\UtilityCssGeneratorInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\UtilityCssGenerator"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\ThemeJsonValidatorInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\ThemeJsonValidator"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\VariableChooserProviderInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\VariableChooserProvider"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\SampleDataProviderPoolInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\SampleDataProviderPool"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateSampleDataMapperInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\SampleData\TemplateSampleDataMapper"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\TemplateProviderMappingInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\SampleData\TemplateProviderMapping"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\MockVariableBuilderPoolInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilderPool"/>
+    <preference for="Hryvinskyi\EmailTemplateEditor\Api\ScheduleConflictDetectorInterface"
+                type="Hryvinskyi\EmailTemplateEditor\Model\ScheduleConflictDetector"/>
+
+    <!-- Logger -->
+    <virtualType name="Hryvinskyi\EmailTemplateEditor\Logger\Handler"
+                 type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/email_template_editor.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Hryvinskyi\EmailTemplateEditor\Logger\Logger"
+                 type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Inject custom logger into services -->
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\CssInliner">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\TemplateRenderer">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\TemplatePublisher">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\EmailTemplateEditor\Plugin\EmailTemplatePlugin">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <!-- Sample Data Provider Pool -->
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\SampleDataProviderPool">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="mock" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockDataProvider</item>
+                <item name="last_order" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\LastOrderProvider</item>
+                <item name="last_customer" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\LastCustomerProvider</item>
+                <item name="specific_order" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\SpecificOrderProvider</item>
+                <item name="custom" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\CustomDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Mock Variable Builder Pool: category -> builder mapping -->
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilderPool">
+        <arguments>
+            <argument name="fallbackBuilder" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\GenericMockBuilder</argument>
+            <argument name="builders" xsi:type="array">
+                <!-- Order domain -->
+                <item name="order" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="order_comment" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="invoice" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="invoice_comment" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="shipment" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="shipment_comment" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="creditmemo" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="creditmemo_comment" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="checkout_payment_failed" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="in_store_pickup" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <item name="order_cancellation" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\OrderMockBuilder</item>
+                <!-- Customer domain -->
+                <item name="customer_new_account" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\CustomerMockBuilder</item>
+                <item name="customer_password" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\CustomerMockBuilder</item>
+                <item name="customer_account_change" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\CustomerMockBuilder</item>
+                <!-- Marketing domain -->
+                <item name="newsletter" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <item name="contact" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <item name="product_alert_stock" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <item name="product_alert_price" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <item name="wishlist" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <item name="send_friend" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\MarketingMockBuilder</item>
+                <!-- Admin domain -->
+                <item name="admin_user" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\AdminMockBuilder</item>
+                <item name="header_footer" xsi:type="object">Hryvinskyi\EmailTemplateEditor\Model\SampleData\MockVariableBuilder\AdminMockBuilder</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Template Provider Mapping: template -> group, group -> provider codes -->
+    <type name="Hryvinskyi\EmailTemplateEditor\Model\SampleData\TemplateProviderMapping">
+        <arguments>
+            <argument name="templateGroupMap" xsi:type="array">
+                <!-- Order templates -->
+                <item name="sales_email_order_template" xsi:type="string">order</item>
+                <item name="sales_email_order_guest_template" xsi:type="string">order</item>
+                <item name="sales_email_order_comment_template" xsi:type="string">order</item>
+                <item name="sales_email_order_comment_guest_template" xsi:type="string">order</item>
+                <!-- Invoice templates -->
+                <item name="sales_email_invoice_template" xsi:type="string">invoice</item>
+                <item name="sales_email_invoice_guest_template" xsi:type="string">invoice</item>
+                <item name="sales_email_invoice_comment_template" xsi:type="string">invoice</item>
+                <item name="sales_email_invoice_comment_guest_template" xsi:type="string">invoice</item>
+                <!-- Shipment templates -->
+                <item name="sales_email_shipment_template" xsi:type="string">shipment</item>
+                <item name="sales_email_shipment_guest_template" xsi:type="string">shipment</item>
+                <item name="sales_email_shipment_comment_template" xsi:type="string">shipment</item>
+                <item name="sales_email_shipment_comment_guest_template" xsi:type="string">shipment</item>
+                <!-- Credit Memo templates -->
+                <item name="sales_email_creditmemo_template" xsi:type="string">creditmemo</item>
+                <item name="sales_email_creditmemo_guest_template" xsi:type="string">creditmemo</item>
+                <item name="sales_email_creditmemo_comment_template" xsi:type="string">creditmemo</item>
+                <item name="sales_email_creditmemo_comment_guest_template" xsi:type="string">creditmemo</item>
+                <!-- Customer templates -->
+                <item name="customer_create_account_email_template" xsi:type="string">customer</item>
+                <item name="customer_create_account_email_no_password_template" xsi:type="string">customer</item>
+                <item name="customer_create_account_email_confirmation_template" xsi:type="string">customer</item>
+                <item name="customer_create_account_email_confirmed_template" xsi:type="string">customer</item>
+                <item name="customer_password_forgot_email_template" xsi:type="string">customer</item>
+                <item name="customer_password_remind_email_template" xsi:type="string">customer</item>
+                <item name="customer_password_reset_password_template" xsi:type="string">customer</item>
+                <item name="customer_account_information_change_email_template" xsi:type="string">customer</item>
+                <item name="customer_account_information_change_email_and_password_template" xsi:type="string">customer</item>
+                <!-- Newsletter templates -->
+                <item name="newsletter_subscription_confirm_email_template" xsi:type="string">newsletter</item>
+                <item name="newsletter_subscription_success_email_template" xsi:type="string">newsletter</item>
+                <item name="newsletter_subscription_un_email_template" xsi:type="string">newsletter</item>
+                <!-- Contact template -->
+                <item name="contact_email_email_template" xsi:type="string">contact</item>
+                <!-- Checkout template -->
+                <item name="checkout_payment_failed_template" xsi:type="string">checkout</item>
+                <!-- Header/Footer templates -->
+                <item name="design_email_header_template" xsi:type="string">header_footer</item>
+                <item name="design_email_footer_template" xsi:type="string">header_footer</item>
+            </argument>
+            <argument name="groups" xsi:type="array">
+                <item name="order" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_order</item>
+                    <item name="2" xsi:type="string">specific_order</item>
+                </item>
+                <item name="invoice" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_order</item>
+                    <item name="2" xsi:type="string">specific_order</item>
+                </item>
+                <item name="shipment" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_order</item>
+                    <item name="2" xsi:type="string">specific_order</item>
+                </item>
+                <item name="creditmemo" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_order</item>
+                    <item name="2" xsi:type="string">specific_order</item>
+                </item>
+                <item name="customer" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_customer</item>
+                </item>
+                <item name="newsletter" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                </item>
+                <item name="contact" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                </item>
+                <item name="checkout" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                    <item name="1" xsi:type="string">last_order</item>
+                    <item name="2" xsi:type="string">specific_order</item>
+                </item>
+                <item name="header_footer" xsi:type="array">
+                    <item name="0" xsi:type="string">mock</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Runtime Plugin: Apply template overrides to transactional emails -->
+    <type name="Magento\Email\Model\AbstractTemplate">
+        <plugin name="hryvinskyi_email_template_override"
+                type="Hryvinskyi\EmailTemplateEditor\Plugin\EmailTemplatePlugin"
+                sortOrder="10"/>
+    </type>
+</config>

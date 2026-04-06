@@ -1,0 +1,80 @@
+{
+    "hryvinskyi_email_theme": {
+        "column": {
+            "theme_id": true,
+            "name": true,
+            "theme_json": true,
+            "is_default": true,
+            "store_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "HRYVINSKYI_EMAIL_THEME_STORE_ID": true,
+            "HRYVINSKYI_EMAIL_THEME_IS_DEFAULT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "hryvinskyi_email_template_override": {
+        "column": {
+            "entity_id": true,
+            "template_identifier": true,
+            "template_content": true,
+            "template_subject": true,
+            "custom_css": true,
+            "tailwind_css": true,
+            "theme_id": true,
+            "store_id": true,
+            "status": true,
+            "scheduled_at": true,
+            "version_comment": true,
+            "created_by_user_id": true,
+            "created_by_username": true,
+            "last_edited_by_user_id": true,
+            "last_edited_by_username": true,
+            "last_edited_at": true,
+            "created_at": true,
+            "updated_at": true,
+            "draft_name": true,
+            "active_from": true,
+            "active_to": true,
+            "is_active": true
+        },
+        "index": {
+            "HRYVINSKYI_EMAIL_TPL_OVERRIDE_TEMPLATE_IDENT_STORE_STATUS": true,
+            "HRYVINSKYI_EMAIL_TPL_OVERRIDE_STATUS_SCHEDULED_AT": true,
+            "HRYVINSKYI_EMAIL_TPL_OVERRIDE_IDENT_STORE_ACTIVE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "HRYVINSKYI_EMAIL_TPL_OVERRIDE_THEME_ID_EMAIL_THEME_THEME_ID": true
+        }
+    },
+    "hryvinskyi_email_template_version": {
+        "column": {
+            "version_id": true,
+            "template_identifier": true,
+            "version_number": true,
+            "template_content": true,
+            "template_subject": true,
+            "custom_css": true,
+            "tailwind_css": true,
+            "theme_id": true,
+            "store_id": true,
+            "version_comment": true,
+            "admin_user_id": true,
+            "admin_username": true,
+            "published_at": true,
+            "created_at": true
+        },
+        "index": {
+            "HRYVINSKYI_EMAIL_TPL_VERSION_IDENT_STORE_NUM": true,
+            "HRYVINSKYI_EMAIL_TPL_VERSION_IDENT_STORE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

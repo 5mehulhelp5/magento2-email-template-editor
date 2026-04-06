@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Hryvinskyi_ConfigurationFields::js/codemirror/lib/codemirror.css"/>
+        <css src="Hryvinskyi_ConfigurationFields::css/foldgutter.css"/>
+        <css src="Hryvinskyi_EmailTemplateEditor::css/email-editor.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Hryvinskyi\EmailTemplateEditor\Block\Adminhtml\Editor"
+                   name="email.template.editor"
+                   template="Hryvinskyi_EmailTemplateEditor::editor.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                            <item name="templateSidebar" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/template-sidebar</item>
+                                <item name="displayArea" xsi:type="string">templateSidebar</item>
+                            </item>
+                            <item name="templateEditor" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/template-editor</item>
+                                <item name="displayArea" xsi:type="string">templateEditor</item>
+                            </item>
+                            <item name="customCssEditor" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/custom-css-editor</item>
+                                <item name="displayArea" xsi:type="string">customCssEditor</item>
+                            </item>
+                            <item name="themeEditor" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/theme-editor</item>
+                                <item name="displayArea" xsi:type="string">themeEditor</item>
+                            </item>
+                            <item name="previewPanel" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/preview-panel</item>
+                                <item name="displayArea" xsi:type="string">previewPanel</item>
+                            </item>
+                            <item name="schedulePanel" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/schedule-panel</item>
+                                <item name="displayArea" xsi:type="string">schedulePanel</item>
+                            </item>
+                            <item name="publishDialog" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/publish-dialog</item>
+                                <item name="displayArea" xsi:type="string">publishDialog</item>
+                            </item>
+                            <item name="versionHistory" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/version-history</item>
+                                <item name="displayArea" xsi:type="string">versionHistory</item>
+                            </item>
+                            <item name="variableChooser" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/variable-chooser</item>
+                                <item name="displayArea" xsi:type="string">variableChooser</item>
+                            </item>
+                            <item name="draftManager" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/draft-manager</item>
+                                <item name="displayArea" xsi:type="string">draftManager</item>
+                            </item>
+                            <item name="draftListPanel" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/draft-list-panel</item>
+                                <item name="displayArea" xsi:type="string">draftListPanel</item>
+                            </item>
+                            <item name="moreMenu" xsi:type="array">
+                                <item name="component" xsi:type="string">Hryvinskyi_EmailTemplateEditor/js/email-editor/more-menu</item>
+                                <item name="displayArea" xsi:type="string">moreMenu</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,42 @@
+<!-- Version History Modal -->
+<div class="ete-modal" data-bind="visible: isVisible">
+    <div class="ete-modal-content ete-modal-wide">
+        <div class="ete-modal-header">
+            <span class="ete-modal-title" data-bind="i18n: 'Version History'"></span>
+            <button class="ete-modal-close" data-bind="click: close">&times;</button>
+        </div>
+        <div class="ete-modal-body ete-history-body">
+            <div class="ete-loading" data-bind="visible: isLoading">
+                <div class="ete-spinner"></div>
+                <span data-bind="i18n: 'Loading history...'"></span>
+            </div>
+            <div class="ete-history-list" data-bind="visible: !isLoading() && !showDiff() && entries().length > 0, foreach: entries">
+                <div class="ete-history-entry" data-bind="css: {'ete-history-entry-active': $data.version_id === $parent.activePreviewId()}">
+                    <div class="ete-history-entry-info">
+                        <div class="ete-history-entry-top">
+                            <span class="ete-version-number">v<span data-bind="text: version_number"></span></span>
+                            <span class="ete-history-date" data-bind="text: published_at"></span>
+                        </div>
+                        <span class="ete-history-user" data-bind="text: admin_username, visible: admin_username"></span>
+                        <span class="ete-version-comment" data-bind="text: version_comment, visible: version_comment"></span>
+                    </div>
+                    <div class="ete-history-entry-actions">
+                        <button class="ete-history-preview-btn" data-bind="click: $parent.previewVersion.bind($parent, $data)"><span data-bind="i18n: 'Preview'"></span></button>
+                        <button class="ete-history-diff-btn" data-bind="click: $parent.showVersionDiff.bind($parent, $data)"><span data-bind="i18n: 'Diff'"></span></button>
+                        <button class="ete-history-revert-btn" data-bind="click: $parent.restoreVersion.bind($parent, $data)"><span data-bind="i18n: 'Restore'"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="ete-history-empty" data-bind="visible: !isLoading() && !showDiff() && entries().length === 0">
+                <span data-bind="i18n: 'No history entries found.'"></span>
+            </div>
+            <div class="ete-diff-container" data-bind="visible: showDiff">
+                <div class="ete-diff-header">
+                    <button class="ete-btn ete-btn-sm ete-btn-secondary" data-bind="click: hideDiff">&larr; <span data-bind="i18n: 'Back to list'"></span></button>
+                    <span class="ete-diff-label" data-bind="text: diffLabel"></span>
+                </div>
+                <div class="ete-diff-view" data-bind="html: diffHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<!-- Schedule Panel -->
+<div class="ete-schedule-panel">
+    <div class="ete-schedule-panel-header">
+        <span class="ete-schedule-panel-title" data-bind="i18n: 'Schedule'"></span>
+        <div class="ete-schedule-panel-actions">
+            <button class="ete-btn ete-btn-sm ete-btn-secondary" data-bind="click: openModal, visible: !hasSchedule()" data-action="set-schedule"><span data-bind="i18n: 'Set Schedule'"></span></button>
+            <button class="ete-btn ete-btn-sm ete-btn-secondary" data-bind="click: openModal, visible: hasSchedule" data-action="edit-schedule"><span data-bind="i18n: 'Edit'"></span></button>
+            <button class="ete-btn ete-btn-sm ete-btn-danger" data-bind="click: removeSchedule, visible: hasSchedule" data-action="remove-schedule"><span data-bind="i18n: 'Remove'"></span></button>
+        </div>
+    </div>
+
+    <!-- Timeline — always visible -->
+    <div class="ete-schedule-timeline">
+        <!-- Status row -->
+        <div class="ete-schedule-timeline-status">
+            <!-- ko if: hasSchedule() -->
+            <span class="ete-schedule-status-badge" data-bind="text: statusLabel, css: statusBadgeCss"></span>
+            <span class="ete-schedule-remaining" data-bind="text: remainingText, visible: remainingText()"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: hasSchedule() -->
+            <span class="ete-schedule-status-badge ete-schedule-badge-active" data-bind="i18n: 'Always Active'"></span>
+            <span class="ete-schedule-remaining" data-bind="i18n: 'No schedule — template is always active'"></span>
+            <!-- /ko -->
+        </div>
+
+        <!-- Graph -->
+        <div class="ete-schedule-graph">
+            <!-- Date labels -->
+            <div class="ete-schedule-graph-labels">
+                <div class="ete-schedule-graph-label">
+                    <span class="ete-schedule-graph-label-title" data-bind="i18n: 'Start'"></span>
+                    <span class="ete-schedule-graph-label-date" data-bind="text: displayFrom"></span>
+                </div>
+                <div class="ete-schedule-graph-label ete-schedule-graph-label-end">
+                    <span class="ete-schedule-graph-label-title" data-bind="i18n: 'End'"></span>
+                    <span class="ete-schedule-graph-label-date" data-bind="text: displayTo"></span>
+                </div>
+            </div>
+
+            <!-- Track -->
+            <div class="ete-schedule-graph-track-wrapper">
+                <div class="ete-schedule-graph-marker">
+                    <div class="ete-schedule-graph-marker-dot"></div>
+                </div>
+                <div class="ete-schedule-graph-track" data-bind="css: graphTrackCss">
+                    <div class="ete-schedule-graph-fill" data-bind="style: {width: progressWidth()}, css: graphFillCss"></div>
+                    <!-- Now indicator (only when active) -->
+                    <!-- ko if: statusLabel() === 'Active' -->
+                    <div class="ete-schedule-graph-now" data-bind="style: {left: progressWidth()}">
+                        <div class="ete-schedule-graph-now-dot"></div>
+                        <span class="ete-schedule-graph-now-label" data-bind="i18n: 'Now'"></span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="ete-schedule-graph-marker">
+                    <div class="ete-schedule-graph-marker-dot" data-bind="css: {'ete-schedule-graph-marker-dot-now': statusLabel() === 'Scheduled'}"></div>
+                </div>
+            </div>
+
+            <!-- Info row -->
+            <div class="ete-schedule-graph-info">
+                <span class="ete-schedule-duration" data-bind="text: durationText"></span>
+                <!-- ko if: hasSchedule() && progressPercent() >= 0 -->
+                <span class="ete-schedule-progress-pct" data-bind="text: progressPercent() + '%'"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

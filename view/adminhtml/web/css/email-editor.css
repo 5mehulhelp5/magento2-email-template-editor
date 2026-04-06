@@ -1,0 +1,3170 @@
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Email Template Editor - Admin Styles (Light Theme)
+ * Colors: #eb5202 #666666 #4a3f39 #e3e3e3 #79a22e #007dbd #f5f5f5 #ffffff #fff1ad
+ */
+
+/* ============================================
+   Layout & Wrapper
+   ============================================ */
+.ete-editor-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    min-height: 600px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #4a3f39;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e3e3e3;
+    position: relative;
+}
+
+/* ============================================
+   Loading Overlay
+   ============================================ */
+.ete-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 5000;
+    gap: 12px;
+    color: #4a3f39;
+    font-size: 14px;
+}
+
+.ete-loading-overlay.ete-hidden {
+    display: none;
+}
+
+.ete-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: #ffffff;
+    color: #4a3f39;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.ete-input:focus {
+    outline: none;
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.25);
+}
+
+/* ============================================
+   Top Toolbar
+   ============================================ */
+.ete-toolbar {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+    flex-shrink: 0;
+}
+
+.ete-toolbar-row {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    min-height: 44px;
+    gap: 8px;
+}
+
+.ete-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ete-toolbar-status-group {
+    flex-shrink: 0;
+    gap: 6px;
+}
+
+.ete-toolbar-context-group {
+    flex: 1;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.ete-toolbar-actions-group {
+    flex-shrink: 0;
+    gap: 4px;
+}
+
+.ete-toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: #e3e3e3;
+    flex-shrink: 0;
+    margin: 0 4px;
+}
+
+/* Toolbar Control (icon + label + select) */
+.ete-toolbar-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    padding: 0 4px 0 8px;
+    height: 30px;
+    transition: border-color 0.15s;
+}
+
+.ete-toolbar-control:hover {
+    border-color: #ccc;
+}
+
+.ete-toolbar-control:focus-within {
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.12);
+}
+
+.ete-toolbar-control-icon {
+    color: #666666;
+    flex-shrink: 0;
+}
+
+.ete-toolbar-control-label {
+    font-size: 11px;
+    color: #666666;
+    white-space: nowrap;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ete-toolbar-select {
+    padding: 2px 22px 2px 4px;
+    background: transparent;
+    color: #4a3f39;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23666666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    min-width: 80px;
+    outline: none;
+}
+
+.ete-toolbar-select option {
+    background: #ffffff;
+    color: #4a3f39;
+}
+
+/* Entity Search (inline in toolbar) */
+.ete-toolbar-entity-search {
+    position: relative;
+}
+
+.ete-toolbar-search-wrapper {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    height: 30px;
+    padding: 0 8px;
+    gap: 5px;
+    transition: border-color 0.15s;
+}
+
+.ete-toolbar-search-wrapper:focus-within {
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.12);
+    background: #ffffff;
+}
+
+.ete-toolbar-search-icon {
+    color: #999;
+    flex-shrink: 0;
+}
+
+.ete-toolbar-search-input {
+    background: transparent;
+    color: #4a3f39;
+    border: none;
+    font-size: 12px;
+    outline: none;
+    width: 140px;
+    min-width: 0;
+}
+
+.ete-toolbar-search-input::placeholder {
+    color: #999;
+}
+
+.ete-toolbar-search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    min-width: 240px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.ete-toolbar-search-result-item {
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #4a3f39;
+    cursor: pointer;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.1s;
+}
+
+.ete-toolbar-search-result-item:last-child {
+    border-bottom: none;
+}
+
+.ete-toolbar-search-result-item:hover {
+    background: rgba(0, 125, 189, 0.06);
+    color: #007dbd;
+}
+
+/* Toolbar Actions */
+.ete-toolbar-text-action {
+    color: #007dbd;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background 0.1s;
+}
+
+.ete-toolbar-text-action:hover {
+    text-decoration: none;
+    background: rgba(0, 125, 189, 0.06);
+}
+
+.ete-toolbar-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1.4;
+    background: #ffffff;
+    color: #4a3f39;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+.ete-toolbar-action:hover {
+    border-color: #ccc;
+    background: #f5f5f5;
+}
+
+.ete-toolbar-action:active {
+    transform: translateY(1px);
+}
+
+.ete-toolbar-action svg {
+    flex-shrink: 0;
+}
+
+.ete-toolbar-action-discard {
+    color: #eb5202;
+    border-color: transparent;
+    background: transparent;
+}
+
+.ete-toolbar-action-discard:hover {
+    background: rgba(235, 82, 2, 0.06);
+    border-color: rgba(235, 82, 2, 0.2);
+}
+
+.ete-toolbar-action-save {
+    background: #ffffff;
+    color: #4a3f39;
+    border-color: #e3e3e3;
+}
+
+.ete-toolbar-action-save:hover {
+    border-color: #007dbd;
+    color: #007dbd;
+    background: rgba(0, 125, 189, 0.04);
+}
+
+.ete-toolbar-action-primary {
+    background: #eb5202;
+    color: #ffffff;
+    border-color: #eb5202;
+}
+
+.ete-toolbar-action-primary:hover {
+    background: #d44a02;
+    border-color: #d44a02;
+    color: #ffffff;
+}
+
+.ete-toolbar-action-more {
+    padding: 5px 6px;
+    border-color: transparent;
+    background: transparent;
+    color: #666666;
+}
+
+.ete-toolbar-action-more:hover {
+    background: #f5f5f5;
+    color: #4a3f39;
+    border-color: #e3e3e3;
+}
+
+.ete-toolbar-btn-group {
+    display: inline-flex;
+    gap: 1px;
+}
+
+.ete-toolbar-btn-group .ete-toolbar-action-save {
+    border-radius: 6px 0 0 6px;
+}
+
+.ete-toolbar-btn-group .ete-toolbar-action-primary {
+    border-radius: 0 6px 6px 0;
+}
+
+/* Legacy label (used in subject row) */
+.ete-toolbar-label {
+    font-size: 13px;
+    color: #4a3f39;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+/* ============================================
+   Status Indicator
+   ============================================ */
+.ete-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1.6;
+}
+
+.ete-status-ready {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+    border: 1px solid rgba(121, 162, 46, 0.3);
+}
+
+.ete-status-saving {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+    border: 1px solid rgba(0, 125, 189, 0.3);
+}
+
+.ete-status-modified {
+    background: rgba(200, 170, 30, 0.12);
+    color: #9a8000;
+    border: 1px solid rgba(200, 170, 30, 0.3);
+}
+
+.ete-status-error {
+    background: rgba(235, 82, 2, 0.12);
+    color: #eb5202;
+    border: 1px solid rgba(235, 82, 2, 0.3);
+}
+
+.ete-status-text {
+    font-size: 12px;
+    color: #666666;
+    font-style: italic;
+}
+
+/* ============================================
+   Badges (Draft / Scheduled / Expired)
+   ============================================ */
+.ete-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1.6;
+}
+
+.ete-badge-draft {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+    border: 1px solid rgba(0, 125, 189, 0.3);
+}
+
+.ete-badge-schedule {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+    border: 1px solid rgba(121, 162, 46, 0.3);
+}
+
+.ete-badge-expired {
+    background: rgba(235, 82, 2, 0.12);
+    color: #eb5202;
+    border: 1px solid rgba(235, 82, 2, 0.3);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.ete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.ete-btn:hover {
+    opacity: 0.9;
+}
+
+.ete-btn:active {
+    transform: translateY(1px);
+}
+
+.ete-btn-primary {
+    background: #eb5202;
+    color: #ffffff;
+    border-color: #eb5202;
+}
+
+.ete-btn-primary:hover {
+    background: #d44a02;
+    color: #ffffff;
+}
+
+.ete-btn-secondary {
+    background: transparent;
+    color: #4a3f39;
+    border-color: #e3e3e3;
+}
+
+.ete-btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: #666666;
+}
+
+.ete-btn-danger {
+    background: transparent;
+    color: #eb5202;
+    border-color: #eb5202;
+}
+
+.ete-btn-danger:hover {
+    background: rgba(235, 82, 2, 0.08);
+}
+
+.ete-btn-more {
+    min-width: 36px;
+    padding: 6px 10px;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   Links
+   ============================================ */
+.ete-link {
+    color: #007dbd;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.ete-link:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   Select / Dropdown
+   ============================================ */
+.ete-select {
+    padding: 5px 28px 5px 10px;
+    background: #ffffff;
+    color: #4a3f39;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a3f39'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    min-width: 120px;
+}
+
+.ete-select:focus {
+    outline: none;
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.25);
+}
+
+.ete-select option {
+    background: #ffffff;
+    color: #4a3f39;
+}
+
+.ete-select-full {
+    width: 100%;
+}
+
+/* ============================================
+   Entity Search (Autocomplete)
+   ============================================ */
+.ete-entity-search {
+    position: relative;
+    min-width: 240px;
+}
+
+.ete-entity-search-input {
+    width: 100%;
+    padding: 5px 10px;
+    background: #ffffff;
+    color: #4a3f39;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.ete-entity-search-input:focus {
+    outline: none;
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.25);
+}
+
+.ete-entity-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ete-entity-result-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #4a3f39;
+    cursor: pointer;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.1s;
+}
+
+.ete-entity-result-item:last-child {
+    border-bottom: none;
+}
+
+.ete-entity-result-item:hover {
+    background: rgba(0, 125, 189, 0.08);
+    color: #007dbd;
+}
+
+.ete-entity-result-empty {
+    padding: 12px;
+    font-size: 13px;
+    color: #666666;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ============================================
+   Subject Line Row
+   ============================================ */
+.ete-subject-row {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e3e3e3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+}
+
+.ete-subject-row .ete-input {
+    flex: 1;
+}
+
+/* ============================================
+   Custom Data Section
+   ============================================ */
+.ete-custom-data-hint {
+    padding: 8px 12px;
+    background: #fff1ad;
+    border-bottom: 1px solid rgba(227, 227, 227, 0.7);
+    font-size: 12px;
+    color: #666666;
+    line-height: 1.4;
+}
+
+.ete-custom-data-textarea {
+    flex: 1;
+    width: 100%;
+    min-height: 200px;
+    padding: 12px;
+    background: #ffffff;
+    color: #4a3f39;
+    border: none;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.ete-custom-data-textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* ============================================
+   Main Split Pane (with sidebar)
+   ============================================ */
+.ete-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ============================================
+   Left Sidebar: Template Tree
+   ============================================ */
+.ete-sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: #ffffff;
+    border-right: 1px solid #e3e3e3;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-search {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e3e3e3;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ete-sidebar-search-icon {
+    position: absolute;
+    left: 10px;
+    color: #999;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-search-input {
+    width: 100%;
+    padding: 7px 10px 7px 32px;
+    font-size: 13px;
+    box-sizing: border-box;
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    color: #4a3f39;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.ete-sidebar-search-input:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.15);
+}
+
+.ete-sidebar-search-input::placeholder {
+    color: #999;
+}
+
+/* Sidebar Filter Buttons */
+.ete-sidebar-filters {
+    display: flex;
+    padding: 4px 8px 6px;
+    gap: 2px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.ete-sidebar-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: #666666;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.ete-sidebar-filter-btn:hover {
+    background: #f5f5f5;
+    color: #4a3f39;
+}
+
+.ete-sidebar-filter-btn.ete-active {
+    background: #eb5202;
+    color: #ffffff;
+    border-color: #eb5202;
+}
+
+.ete-sidebar-filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.08);
+    color: inherit;
+}
+
+.ete-sidebar-filter-btn.ete-active .ete-sidebar-filter-count {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.ete-sidebar-tree {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+}
+
+/* Level 1: Group (folder) */
+.ete-sidebar-group {
+    margin-bottom: 2px;
+}
+
+.ete-sidebar-group-header {
+    padding: 6px 12px;
+    font-weight: 600;
+    color: #4a3f39;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+    border-radius: 4px;
+    margin: 0 6px;
+    transition: background 0.1s;
+}
+
+.ete-sidebar-group-header:hover {
+    background: #f5f5f5;
+}
+
+.ete-sidebar-group-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+    color: #999;
+}
+
+.ete-sidebar-group-icon.ete-expanded {
+    transform: rotate(90deg);
+}
+
+.ete-sidebar-group-icon svg {
+    display: block;
+}
+
+.ete-sidebar-folder-icon {
+    flex-shrink: 0;
+    color: #666666;
+}
+
+.ete-sidebar-group-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ete-sidebar-group-items {
+    padding-left: 8px;
+}
+
+/* Level 2: Template node */
+.ete-sidebar-tpl {
+    margin: 1px 0;
+}
+
+.ete-sidebar-tpl-header {
+    padding: 5px 10px 5px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #4a3f39;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 6px;
+    margin: 1px 6px;
+    transition: background 0.1s;
+}
+
+.ete-sidebar-tpl-header:hover {
+    background: #f5f5f5;
+}
+
+.ete-sidebar-tpl-header:hover .ete-sidebar-tpl-add {
+    opacity: 1;
+}
+
+.ete-sidebar-tpl.ete-active > .ete-sidebar-tpl-header {
+    background: #e3e3e3;
+    color: #4a3f39;
+    font-weight: 500;
+}
+
+.ete-sidebar-tpl-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+    color: #999;
+    cursor: pointer;
+}
+
+.ete-sidebar-tpl-icon.ete-expanded {
+    transform: rotate(90deg);
+}
+
+.ete-sidebar-tpl-icon svg {
+    display: block;
+}
+
+.ete-sidebar-tpl-icon-spacer {
+    display: inline-block;
+    width: 12px;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-doc-icon {
+    flex-shrink: 0;
+    color: #999;
+}
+
+.ete-sidebar-tpl.ete-active .ete-sidebar-doc-icon {
+    color: #007dbd;
+}
+
+/* "+" button on template row */
+.ete-sidebar-tpl-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    opacity: 0;
+    cursor: pointer;
+    color: #666666;
+    transition: opacity 0.12s, background 0.12s, color 0.12s;
+    margin-left: auto;
+}
+
+.ete-sidebar-tpl-add:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: #4a3f39;
+}
+
+.ete-sidebar-tpl-add svg {
+    display: block;
+}
+
+.ete-sidebar-item-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+    line-height: 1.4;
+}
+
+/* Override dot indicator */
+.ete-sidebar-tpl-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-tpl-dot.ete-dot-published {
+    background: #79a22e;
+}
+
+.ete-sidebar-tpl-dot.ete-dot-draft {
+    background: #f0c800;
+}
+
+.ete-sidebar-tpl-dot.ete-dot-scheduled {
+    background: #007dbd;
+}
+
+/* Status badges (inline in template header) */
+.ete-status-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-left: 2px;
+    line-height: 1.4;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ete-badge-draft {
+    background: #fff1ad;
+    color: #4a3f39;
+}
+
+.ete-badge-published {
+    background: rgba(121, 162, 46, 0.15);
+    color: #79a22e;
+}
+
+.ete-badge-scheduled {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+}
+
+/* Level 3: Override children */
+.ete-sidebar-tpl-children {
+    padding-left: 24px;
+}
+
+.ete-sidebar-override {
+    padding: 5px 10px 5px 16px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #666666;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    border-radius: 4px;
+    margin: 1px 6px;
+    transition: background 0.1s;
+}
+
+.ete-sidebar-override:hover {
+    background: #f5f5f5;
+    color: #4a3f39;
+}
+
+.ete-sidebar-override.ete-override-active {
+    background: #e3e3e3;
+    color: #4a3f39;
+}
+
+.ete-sidebar-override-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.ete-sidebar-override-dot.ete-dot-published {
+    background: #79a22e;
+}
+
+.ete-sidebar-override-dot.ete-dot-draft {
+    background: #f0c800;
+}
+
+.ete-sidebar-override-dot.ete-dot-scheduled {
+    background: #007dbd;
+}
+
+.ete-sidebar-override-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.ete-sidebar-override-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #4a3f39;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.ete-sidebar-override-meta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: #999;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ete-sidebar-override-user {
+    color: #666666;
+    font-weight: 500;
+}
+
+.ete-sidebar-override-user::after {
+    content: '\00b7';
+    margin-left: 4px;
+    color: #ccc;
+}
+
+.ete-sidebar-override-date {
+    color: #999;
+}
+
+.ete-sidebar-override-schedule-label {
+    font-size: 11px;
+}
+
+.ete-sidebar-override-schedule {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: #007dbd;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ete-sidebar-override-schedule svg {
+    flex-shrink: 0;
+    color: #007dbd;
+}
+
+.ete-sidebar-override-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.12s;
+    margin-top: 2px;
+}
+
+.ete-sidebar-override:hover .ete-sidebar-override-actions {
+    opacity: 1;
+}
+
+.ete-sidebar-override-rename,
+.ete-sidebar-override-delete,
+.ete-sidebar-override-schedule {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+    color: #666666;
+    transition: background 0.12s, color 0.12s;
+}
+
+.ete-sidebar-override-rename:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: #4a3f39;
+}
+
+.ete-sidebar-override-schedule:hover {
+    background: rgba(0, 125, 189, 0.1);
+    color: #007dbd;
+}
+
+.ete-sidebar-override-delete:hover {
+    background: rgba(235, 82, 2, 0.08);
+    color: #eb5202;
+}
+
+.ete-sidebar-override-rename svg,
+.ete-sidebar-override-delete svg,
+.ete-sidebar-override-schedule svg {
+    display: block;
+}
+
+/* Toolbar toggle */
+.ete-toolbar-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+}
+
+.ete-toolbar-toggle:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.ete-toolbar-toggle-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ete-toolbar-toggle.ete-toggle-on .ete-toolbar-toggle-label {
+    color: #79a22e;
+}
+
+.ete-toolbar-toggle.ete-toggle-off .ete-toolbar-toggle-label {
+    color: #eb5202;
+}
+
+/* Override toggle switch */
+.ete-sidebar-override-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.ete-toggle-track {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 14px;
+    border-radius: 7px;
+    padding: 2px;
+    transition: background 0.2s;
+    background: #e3e3e3;
+}
+
+.ete-toggle-on .ete-toggle-track {
+    background: #79a22e;
+}
+
+.ete-toggle-off .ete-toggle-track {
+    background: #e3e3e3;
+}
+
+.ete-toggle-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.ete-toggle-on .ete-toggle-thumb {
+    transform: translateX(10px);
+}
+
+.ete-toggle-off .ete-toggle-thumb {
+    transform: translateX(0);
+}
+
+/* Disabled override */
+.ete-override-disabled {
+    opacity: 0.5;
+}
+
+.ete-override-disabled .ete-sidebar-override-label {
+    text-decoration: line-through;
+}
+
+.ete-dot-disabled {
+    opacity: 0.3;
+}
+
+.ete-modal-subtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.ete-edit-schedule-modal .ete-modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ete-sidebar-badge-sm {
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+}
+
+.ete-sidebar-count {
+    font-size: 11px;
+    color: #999;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   Panels Container (editor + preview)
+   ============================================ */
+.ete-panels-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.ete-panel-left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 300px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+.ete-panel-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 300px;
+    background: #ffffff;
+}
+
+/* ============================================
+   Resizer
+   ============================================ */
+.ete-resizer {
+    width: 5px;
+    cursor: col-resize;
+    background: #e3e3e3;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    position: relative;
+}
+
+.ete-resizer:hover,
+.ete-resizer.ete-dragging {
+    background: #007dbd;
+}
+
+/* ============================================
+   Accordion Sections
+   ============================================ */
+.ete-section {
+    border-bottom: 1px solid #e3e3e3;
+    display: flex;
+    flex-direction: column;
+}
+
+.ete-section-template {
+    flex: 1;
+}
+
+.ete-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #f5f5f5;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #e3e3e3;
+    transition: background 0.15s;
+}
+
+.ete-section-header:hover {
+    background: #ebebeb;
+}
+
+.ete-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4a3f39;
+}
+
+.ete-section-toggle {
+    font-size: 10px;
+    color: #666666;
+    transition: transform 0.2s;
+}
+
+.ete-section-toggle svg {
+    display: block;
+}
+
+.ete-section-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.ete-section-body.ete-collapsed {
+    display: none;
+}
+
+/* ============================================
+   Toolbar Separator
+   ============================================ */
+.ete-toolbar-separator {
+    width: 1px;
+    height: 20px;
+    background: #e3e3e3;
+    margin: 0 4px;
+}
+
+/* ============================================
+   Editor Toolbar (icons row)
+   ============================================ */
+.ete-editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: #f5f5f5;
+    border-bottom: 1px solid rgba(227, 227, 227, 0.7);
+}
+
+.ete-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: #4a3f39;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+}
+
+.ete-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: #e3e3e3;
+}
+
+.ete-icon-btn svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.ete-icon-btn.ete-active {
+    background: rgba(0, 125, 189, 0.1);
+    border-color: #007dbd;
+    color: #007dbd;
+}
+
+.ete-btn-danger-icon:hover {
+    background: rgba(235, 82, 2, 0.08);
+    color: #eb5202;
+    border-color: #eb5202;
+}
+
+/* ============================================
+   CodeMirror Container
+   ============================================ */
+.ete-codemirror-container {
+    flex: 1;
+    overflow: hidden;
+    min-height: 200px;
+}
+
+.ete-codemirror-container .CodeMirror {
+    height: 100%;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ete-codemirror-css {
+    min-height: 150px;
+}
+
+/* ============================================
+   Theme Tags
+   ============================================ */
+.ete-theme-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-bottom: 1px solid rgba(227, 227, 227, 0.7);
+}
+
+.ete-theme-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid #e3e3e3;
+    background: transparent;
+    color: #4a3f39;
+}
+
+.ete-theme-tag:hover {
+    border-color: #666666;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.ete-theme-tag.ete-active {
+    border-color: #007dbd;
+    background: rgba(0, 125, 189, 0.08);
+    color: #007dbd;
+}
+
+.ete-theme-tag-default {
+    font-size: 9px;
+    background: rgba(121, 162, 46, 0.15);
+    color: #79a22e;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-left: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   Tailwind CSS Output
+   ============================================ */
+.ete-tailwind-output {
+    background: #f5f5f5;
+    padding: 12px;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 12px;
+    max-height: 200px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #4a3f39;
+    margin: 0;
+    line-height: 1.5;
+    border: none;
+}
+
+/* ============================================
+   Preview Panel
+   ============================================ */
+.ete-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e3e3e3;
+    flex-shrink: 0;
+}
+
+.ete-preview-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4a3f39;
+}
+
+.ete-preview-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.ete-preview-controls .ete-icon-btn {
+    color: #4a3f39;
+}
+
+.ete-preview-controls .ete-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.ete-preview-controls .ete-icon-btn.ete-active {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+}
+
+.ete-preview-body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: #e3e3e3;
+    padding: 16px;
+}
+
+.ete-preview-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: max-width 0.3s ease;
+}
+
+.ete-preview-iframe.ete-mobile {
+    max-width: 375px;
+}
+
+/* ============================================
+   Variable Chooser Panel (slide from right)
+   ============================================ */
+/* Variable Chooser Panel */
+.ete-variable-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 360px;
+    background: #ffffff;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    animation: ete-slide-in-right 0.2s ease-out;
+}
+
+@keyframes ete-slide-in-right {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Panel Header */
+.ete-variable-panel-header {
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid #e3e3e3;
+    flex-shrink: 0;
+    background: #f5f5f5;
+}
+
+.ete-variable-panel-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ete-variable-panel-icon {
+    color: #eb5202;
+    flex-shrink: 0;
+}
+
+.ete-variable-panel-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4a3f39;
+}
+
+.ete-variable-panel-count {
+    font-size: 11px;
+    color: #666666;
+    font-weight: 400;
+    margin-left: auto;
+}
+
+.ete-variable-panel-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #666666;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.ete-variable-panel-close:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #4a3f39;
+}
+
+/* Search */
+.ete-variable-panel-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    padding: 0 10px;
+    height: 34px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.ete-variable-panel-search:focus-within {
+    border-color: #007dbd;
+    box-shadow: 0 0 0 2px rgba(0, 125, 189, 0.15);
+}
+
+.ete-variable-panel-search-icon {
+    color: #999;
+    flex-shrink: 0;
+}
+
+.ete-variable-panel-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    color: #4a3f39;
+    outline: none;
+    min-width: 0;
+}
+
+.ete-variable-panel-search-input::placeholder {
+    color: #999;
+}
+
+.ete-variable-panel-search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #e3e3e3;
+    color: #666666;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: all 0.15s;
+}
+
+.ete-variable-panel-search-clear:hover {
+    background: #666666;
+    color: #ffffff;
+}
+
+/* Loading */
+.ete-variable-panel-loading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #666666;
+    font-size: 13px;
+}
+
+/* Body */
+.ete-variable-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 12px;
+}
+
+/* Empty State */
+.ete-variable-panel-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #666666;
+    font-size: 13px;
+}
+
+.ete-variable-panel-empty-hint {
+    font-size: 12px;
+    color: #999;
+}
+
+.ete-variable-panel-empty-action {
+    border: none;
+    background: none;
+    color: #007dbd;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+.ete-variable-panel-empty-action:hover {
+    background: rgba(0, 125, 189, 0.08);
+}
+
+/* Variable Groups */
+.ete-variable-group {
+    margin-bottom: 4px;
+}
+
+.ete-variable-group-recent {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e3e3e3;
+}
+
+.ete-variable-group-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4a3f39;
+    cursor: pointer;
+    border-radius: 4px;
+    user-select: none;
+    transition: background 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ete-variable-group-header:hover {
+    background: #f5f5f5;
+}
+
+.ete-variable-group-chevron {
+    flex-shrink: 0;
+    color: #999;
+    transition: transform 0.2s;
+}
+
+.ete-variable-group-chevron.ete-expanded {
+    transform: rotate(90deg);
+}
+
+.ete-variable-group-icon {
+    flex-shrink: 0;
+    color: #eb5202;
+}
+
+.ete-variable-group-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ete-variable-group-count {
+    font-size: 10px;
+    font-weight: 700;
+    color: #999;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 1px 6px;
+    flex-shrink: 0;
+}
+
+.ete-variable-group-items {
+    padding: 2px 0 2px 4px;
+}
+
+/* Variable Item */
+.ete-variable-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 7px 10px;
+    color: #4a3f39;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.12s;
+    position: relative;
+}
+
+.ete-variable-item:hover {
+    background: rgba(0, 125, 189, 0.06);
+    border-color: rgba(0, 125, 189, 0.15);
+}
+
+.ete-variable-item:active {
+    background: rgba(0, 125, 189, 0.12);
+}
+
+.ete-variable-code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 11px;
+    color: #007dbd;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+.ete-variable-label {
+    font-size: 11px;
+    color: #666666;
+    line-height: 1.3;
+}
+
+.ete-variable-insert-hint {
+    display: none;
+    font-size: 10px;
+    font-weight: 600;
+    color: #007dbd;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ete-variable-item:hover .ete-variable-insert-hint {
+    display: block;
+}
+
+/* Footer */
+.ete-variable-panel-footer {
+    padding: 8px 16px;
+    border-top: 1px solid #e3e3e3;
+    background: #f5f5f5;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   Status Bar
+   ============================================ */
+.ete-status-bar {
+    padding: 4px 16px;
+    background: #f5f5f5;
+    border-top: 1px solid #e3e3e3;
+    font-size: 12px;
+    color: #666666;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   More Menu Dropdown
+   ============================================ */
+.ete-more-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 200;
+    min-width: 200px;
+}
+
+.ete-more-menu a {
+    display: block;
+    padding: 8px 14px;
+    color: #4a3f39;
+    text-decoration: none;
+    font-size: 12px;
+    transition: background 0.1s;
+}
+
+.ete-more-menu a:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+.ete-more-menu a:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.ete-more-menu a:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+}
+
+.ete-more-menu a.ete-danger {
+    color: #eb5202;
+}
+
+/* ============================================
+   Loading Spinner
+   ============================================ */
+.ete-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 10;
+    gap: 12px;
+    color: #4a3f39;
+    font-size: 13px;
+}
+
+.ete-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e3e3e3;
+    border-top-color: #007dbd;
+    border-radius: 50%;
+    animation: ete-spin 0.8s linear infinite;
+}
+
+@keyframes ete-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Modal
+   ============================================ */
+.ete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ete-modal-content {
+    background: #ffffff;
+    border-radius: 8px;
+    width: 420px;
+    max-width: 90vw;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    border: 1px solid #e3e3e3;
+}
+
+.ete-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.ete-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4a3f39;
+}
+
+.ete-modal-close {
+    background: none;
+    border: none;
+    color: #666666;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.ete-modal-close:hover {
+    color: #4a3f39;
+}
+
+.ete-modal-body {
+    padding: 20px;
+}
+
+.ete-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 20px;
+    border-top: 1px solid #e3e3e3;
+}
+
+/* Send Test Email Button */
+.ete-btn-send-test {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    color: #007dbd !important;
+    font-weight: 600;
+}
+
+.ete-btn-send-test:hover {
+    color: #eb5202 !important;
+}
+
+/* Send Test Email Dialog */
+.ete-send-test-modal .ete-modal-content {
+    max-width: 440px;
+}
+
+.ete-send-test-hint {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0 0 12px;
+}
+
+/* Confirmation Modal */
+.ete-confirm-modal .ete-modal-content {
+    max-width: 440px;
+}
+
+.ete-confirm-modal .ete-modal-header.ete-confirm-danger .ete-modal-title {
+    color: #eb5202;
+}
+
+.ete-confirm-message {
+    font-size: 14px;
+    color: #4a3f39;
+    line-height: 1.5;
+    margin: 0 0 8px;
+}
+
+.ete-confirm-detail {
+    font-size: 12px;
+    color: #666666;
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    word-break: break-word;
+}
+
+/* ============================================
+   Form Elements (inside modals)
+   ============================================ */
+.ete-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a3f39;
+    margin-bottom: 6px;
+    margin-top: 12px;
+}
+
+.ete-label:first-child {
+    margin-top: 0;
+}
+
+.ete-file-input {
+    width: 100%;
+    padding: 8px;
+    color: #4a3f39;
+    font-size: 13px;
+}
+
+.ete-help-text {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* ============================================
+   Publish Dialog
+   ============================================ */
+.ete-publish-feedback {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.ete-publish-feedback.ete-success {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+    border: 1px solid rgba(121, 162, 46, 0.3);
+}
+
+.ete-publish-feedback.ete-error {
+    background: rgba(235, 82, 2, 0.12);
+    color: #eb5202;
+    border: 1px solid rgba(235, 82, 2, 0.3);
+}
+
+/* Publish Dialog — Context & Changes Summary */
+.ete-publish-context {
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.ete-publish-context-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.ete-publish-context-label {
+    color: #666666;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ete-publish-context-value {
+    color: #4a3f39;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ete-publish-changes {
+    margin-bottom: 12px;
+}
+
+.ete-publish-changes .ete-label {
+    margin-bottom: 6px;
+}
+
+.ete-publish-changes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ete-publish-change-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ete-publish-change-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.ete-publish-change-label {
+    font-weight: 600;
+    color: #4a3f39;
+}
+
+.ete-publish-change-detail {
+    color: #666666;
+    font-weight: 400;
+    margin-left: auto;
+    font-size: 11px;
+}
+
+.ete-change-template .ete-publish-change-icon { color: #007dbd; }
+.ete-change-subject .ete-publish-change-icon { color: #79a22e; }
+.ete-change-css .ete-publish-change-icon { color: #eb5202; }
+.ete-change-theme .ete-publish-change-icon { color: #4a3f39; }
+.ete-change-tailwind .ete-publish-change-icon { color: #007dbd; }
+
+/* ============================================
+   Schedule Panel
+   ============================================ */
+.ete-schedule-panel {
+    background: #f5f5f5;
+    padding: 10px 12px;
+}
+
+.ete-schedule-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+.ete-schedule-panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666666;
+}
+
+.ete-schedule-panel-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.ete-btn-sm {
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.ete-schedule-empty {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666666;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Timeline */
+.ete-schedule-timeline {
+    margin-top: 12px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+}
+
+.ete-schedule-timeline-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.ete-schedule-remaining {
+    font-size: 11px;
+    color: #666666;
+    font-style: italic;
+}
+
+/* Graph */
+.ete-schedule-graph {
+    margin-top: 4px;
+}
+
+.ete-schedule-graph-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ete-schedule-graph-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ete-schedule-graph-label-end {
+    text-align: right;
+}
+
+.ete-schedule-graph-label-title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666666;
+    font-weight: 600;
+}
+
+.ete-schedule-graph-label-date {
+    font-size: 12px;
+    color: #4a3f39;
+    font-weight: 600;
+}
+
+.ete-schedule-graph-track-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    padding: 6px 0;
+}
+
+.ete-schedule-graph-marker {
+    flex-shrink: 0;
+    z-index: 2;
+    margin: 0 -3px;
+}
+
+.ete-schedule-graph-marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4a3f39;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1.5px #4a3f39;
+}
+
+.ete-schedule-graph-track {
+    flex: 1;
+    height: 8px;
+    background: #e3e3e3;
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+}
+
+.ete-schedule-graph-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    min-width: 4px;
+}
+
+.ete-fill-active {
+    background: linear-gradient(90deg, #79a22e, #8db83a);
+}
+
+.ete-fill-scheduled {
+    background: linear-gradient(90deg, #007dbd, #0098e5);
+}
+
+.ete-fill-expired {
+    background: linear-gradient(90deg, #eb5202, #666666);
+}
+
+.ete-schedule-graph-now {
+    position: absolute;
+    top: -4px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.ete-schedule-graph-now-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #79a22e;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin-top: 2px;
+}
+
+.ete-schedule-graph-now-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #79a22e;
+    text-transform: uppercase;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+}
+
+/* Countdown track (Scheduled state) */
+.ete-schedule-graph-track-countdown {
+    background: rgba(0, 125, 189, 0.1);
+}
+
+.ete-schedule-graph-track-countdown .ete-schedule-graph-fill {
+    animation: ete-countdown-pulse 2s ease-in-out infinite;
+}
+
+.ete-schedule-graph-marker-dot-now {
+    background: #007dbd;
+    box-shadow: 0 0 0 1px #007dbd;
+    animation: ete-dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ete-countdown-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes ete-dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 1px #007dbd; }
+    50% { box-shadow: 0 0 0 3px rgba(0, 125, 189, 0.3); }
+}
+
+.ete-schedule-graph-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #666666;
+}
+
+.ete-schedule-duration {
+    font-weight: 500;
+}
+
+.ete-schedule-progress-pct {
+    font-weight: 600;
+    color: #4a3f39;
+}
+
+.ete-schedule-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ete-schedule-badge-active {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+    border: 1px solid rgba(121, 162, 46, 0.3);
+}
+
+.ete-schedule-badge-scheduled {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+    border: 1px solid rgba(0, 125, 189, 0.3);
+}
+
+.ete-schedule-badge-expired {
+    background: rgba(235, 82, 2, 0.12);
+    color: #eb5202;
+    border: 1px solid rgba(235, 82, 2, 0.3);
+}
+
+/* Schedule Modal Fields */
+.ete-schedule-modal-field {
+    margin-bottom: 16px;
+}
+
+.ete-schedule-modal-field:last-of-type {
+    margin-bottom: 0;
+}
+
+.ete-schedule-modal-field .ete-help-text {
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.ete-schedule-validation {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(235, 82, 2, 0.08);
+    border: 1px solid rgba(235, 82, 2, 0.3);
+    border-radius: 4px;
+    color: #eb5202;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ============================================
+   History Modal & List
+   ============================================ */
+.ete-modal-wide {
+    width: 600px;
+    max-width: 90vw;
+}
+
+.ete-history-body {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 0 !important;
+    position: relative;
+    min-height: 100px;
+}
+
+.ete-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ete-history-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.1s;
+}
+
+.ete-history-entry:last-child {
+    border-bottom: none;
+}
+
+.ete-history-entry:hover {
+    background: rgba(0, 125, 189, 0.04);
+}
+
+.ete-history-entry-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.ete-history-entry-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ete-history-action-badge {
+    display: inline-flex;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.ete-action-created,
+.ete-action-updated {
+    background: rgba(0, 125, 189, 0.12);
+    color: #007dbd;
+}
+
+.ete-action-published {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+}
+
+.ete-action-draft_saved {
+    background: rgba(102, 102, 102, 0.12);
+    color: #666666;
+}
+
+.ete-action-draft_discarded,
+.ete-action-reset {
+    background: rgba(235, 82, 2, 0.12);
+    color: #eb5202;
+}
+
+.ete-action-reverted {
+    background: rgba(255, 241, 173, 0.5);
+    color: #9a8000;
+}
+
+.ete-action-schedule_updated {
+    background: rgba(121, 162, 46, 0.12);
+    color: #79a22e;
+}
+
+.ete-history-date {
+    font-size: 12px;
+    color: #666666;
+}
+
+.ete-history-user {
+    font-size: 12px;
+    color: #4a3f39;
+    font-weight: 500;
+}
+
+.ete-history-entry-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.ete-history-preview-btn,
+.ete-history-revert-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    background: transparent;
+    color: #4a3f39;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.ete-history-preview-btn:hover {
+    border-color: #79a22e;
+    color: #79a22e;
+    background: rgba(121, 162, 46, 0.06);
+}
+
+.ete-history-revert-btn:hover {
+    border-color: #007dbd;
+    color: #007dbd;
+    background: rgba(0, 125, 189, 0.06);
+}
+
+.ete-history-entry-active {
+    background: rgba(121, 162, 46, 0.08);
+}
+
+.ete-history-entry-active .ete-history-preview-btn {
+    border-color: #79a22e;
+    color: #ffffff;
+    background: #79a22e;
+}
+
+.ete-history-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: #666666;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.ete-history-diff-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    background: transparent;
+    color: #4a3f39;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.ete-history-diff-btn:hover {
+    border-color: #eb5202;
+    color: #eb5202;
+    background: rgba(235, 82, 2, 0.06);
+}
+
+/* ============================================
+   Diff View
+   ============================================ */
+.ete-diff-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ete-diff-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e3e3e3;
+    flex-shrink: 0;
+}
+
+.ete-diff-label {
+    font-size: 12px;
+    color: #666666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ete-diff-view {
+    flex: 1;
+    overflow: auto;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.ete-diff-hunk {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.ete-diff-hunk:last-child {
+    border-bottom: none;
+}
+
+.ete-diff-separator {
+    padding: 6px 20px;
+    text-align: center;
+    color: #e3e3e3;
+    font-size: 14px;
+    letter-spacing: 4px;
+    background: #f5f5f5;
+}
+
+.ete-diff-line {
+    display: flex;
+    align-items: stretch;
+    min-height: 22px;
+    border-left: 3px solid transparent;
+}
+
+.ete-diff-line-add {
+    background: rgba(121, 162, 46, 0.1);
+    border-left-color: #79a22e;
+}
+
+.ete-diff-line-remove {
+    background: rgba(235, 82, 2, 0.1);
+    border-left-color: #eb5202;
+}
+
+.ete-diff-line-equal {
+    background: transparent;
+    border-left-color: transparent;
+}
+
+.ete-diff-line-number {
+    display: inline-block;
+    width: 40px;
+    min-width: 40px;
+    padding: 0 6px;
+    text-align: right;
+    color: #999;
+    user-select: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.ete-diff-line-add .ete-diff-ln-new,
+.ete-diff-line-remove .ete-diff-ln-old {
+    color: #666666;
+}
+
+.ete-diff-line-prefix {
+    display: inline-block;
+    width: 16px;
+    min-width: 16px;
+    text-align: center;
+    color: #666666;
+    font-weight: 700;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.ete-diff-line-add .ete-diff-line-prefix {
+    color: #79a22e;
+}
+
+.ete-diff-line-remove .ete-diff-line-prefix {
+    color: #eb5202;
+}
+
+.ete-diff-line-text {
+    flex: 1;
+    white-space: pre;
+    overflow-x: auto;
+    padding-right: 12px;
+}
+
+.ete-diff-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: #666666;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* ============================================
+   Version History Items
+   ============================================ */
+.ete-version-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.ete-version-item:last-child {
+    border-bottom: none;
+}
+
+.ete-version-number {
+    font-weight: 700;
+    color: #4a3f39;
+}
+
+.ete-version-current {
+    background: #79a22e;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+}
+
+.ete-version-comment {
+    color: #4a3f39;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.ete-version-meta {
+    color: #666666;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.ete-version-actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+}
+
+.ete-version-actions a {
+    color: #007dbd;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.ete-version-actions a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+.ete-panel-left::-webkit-scrollbar,
+.ete-sidebar::-webkit-scrollbar,
+.ete-sidebar-tree::-webkit-scrollbar,
+.ete-variable-panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ete-panel-left::-webkit-scrollbar-track,
+.ete-sidebar::-webkit-scrollbar-track,
+.ete-sidebar-tree::-webkit-scrollbar-track,
+.ete-variable-panel-body::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.ete-panel-left::-webkit-scrollbar-thumb,
+.ete-sidebar::-webkit-scrollbar-thumb,
+.ete-sidebar-tree::-webkit-scrollbar-thumb,
+.ete-variable-panel-body::-webkit-scrollbar-thumb {
+    background: #e3e3e3;
+    border-radius: 3px;
+}
+
+.ete-panel-left::-webkit-scrollbar-thumb:hover,
+.ete-sidebar::-webkit-scrollbar-thumb:hover,
+.ete-sidebar-tree::-webkit-scrollbar-thumb:hover,
+.ete-variable-panel-body::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 1200px) {
+    .ete-sidebar {
+        width: 240px;
+        min-width: 240px;
+    }
+
+    .ete-panel-right {
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ete-panels-container {
+        flex-direction: column;
+    }
+
+    .ete-panel-left {
+        width: 100%;
+        min-width: unset;
+        max-height: 50%;
+    }
+
+    .ete-resizer {
+        width: 100%;
+        height: 5px;
+        cursor: row-resize;
+    }
+
+    .ete-panel-right {
+        min-width: unset;
+    }
+}
+
+/* ========================================
+   Draft List Panel
+   ======================================== */
+
+.ete-draft-list {
+    margin-bottom: 12px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    background: #f5f5f5;
+}
+
+.ete-draft-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e3e3e3;
+    background: #ffffff;
+    border-radius: 4px 4px 0 0;
+}
+
+.ete-draft-list-title {
+    font-weight: 600;
+    font-size: 12px;
+    color: #4a3f39;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ete-draft-cards {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ete-draft-card {
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.ete-draft-card:hover {
+    border-color: #007dbd;
+}
+
+.ete-draft-card.ete-active {
+    border-color: #007dbd;
+    box-shadow: 0 0 0 1px #007dbd;
+}
+
+.ete-draft-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.ete-draft-card-name {
+    font-weight: 500;
+    font-size: 13px;
+    color: #4a3f39;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.ete-draft-card-meta {
+    margin-bottom: 6px;
+}
+
+.ete-draft-card-user {
+    display: block;
+    font-size: 11px;
+    color: #4a3f39;
+    line-height: 1.4;
+}
+
+.ete-draft-card-date {
+    font-size: 11px;
+    color: #666666;
+}
+
+.ete-draft-card-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.ete-btn-xs {
+    padding: 2px 6px;
+    font-size: 11px;
+    border-radius: 3px;
+    line-height: 1.4;
+}
+
+.ete-badge-sm {
+    display: inline-block;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+}
+
+.ete-badge-draft {
+    background: #fff1ad;
+    color: #4a3f39;
+}
+
+.ete-badge-published {
+    background: #79a22e;
+    color: #ffffff;
+}
+
+.ete-badge-scheduled {
+    background: #007dbd;
+    color: #ffffff;
+}
+
+/* ========================================
+   Schedule Conflict UI
+   ======================================== */
+
+.ete-conflict-list {
+    margin-top: 8px;
+    border: 1px solid #eb5202;
+    border-radius: 4px;
+    background: #fff1ad;
+    padding: 8px 12px;
+}
+
+.ete-conflict-list-title {
+    font-weight: 600;
+    font-size: 12px;
+    color: #eb5202;
+    margin-bottom: 6px;
+}
+
+.ete-conflict-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 12px;
+    color: #4a3f39;
+    border-bottom: 1px solid rgba(235, 82, 2, 0.2);
+}
+
+.ete-conflict-item:last-child {
+    border-bottom: none;
+}
+
+.ete-conflict-name {
+    font-weight: 500;
+}
+
+.ete-conflict-dates {
+    font-size: 11px;
+    color: #666666;
+}
+
+/* ========================================
+   Schedule Status Colors
+   ======================================== */
+
+.ete-status-active {
+    color: #79a22e;
+}
+
+.ete-status-scheduled {
+    color: #007dbd;
+}
+
+.ete-status-expired {
+    color: #666666;
+}
+
+/* ========================================
+   Sidebar Expand Toggle (legacy)
+   ======================================== */
+
+.ete-sidebar-expand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.ete-sidebar-expand.ete-expanded svg {
+    transform: rotate(90deg);
+}
