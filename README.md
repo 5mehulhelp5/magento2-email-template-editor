@@ -2,7 +2,7 @@
 
 A professional, feature-rich email template editor for Magento 2 that replaces the default email template management with a modern, real-time editing experience.
 
-![Editor Overview](docs/screenshots/editor-overview.png)
+![Editor Overview](docs/screenshots/editor-overview.jpg)
 
 ## Features
 
