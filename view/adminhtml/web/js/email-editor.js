@@ -1040,10 +1040,12 @@ define([
                 return;
             }
 
-            this.setStatus('saving', 'SAVING DRAFT');
+            var isPublished = this.currentTemplateStatus() === 'published';
+
+            this.setStatus('saving', isPublished ? 'SAVING' : 'SAVING DRAFT');
 
             data = this.getSaveData();
-            data.status = 'draft';
+            data.status = isPublished ? 'published' : 'draft';
 
             if (asNew) {
                 delete data.entity_id;
@@ -1051,13 +1053,15 @@ define([
 
             this._ajax(this.urls.saveDraft, data, 'POST').done(function (res) {
                 if (res.success) {
-                    self.currentTemplateStatus('draft');
-                    self.hasDraft(true);
+                    if (!isPublished) {
+                        self.currentTemplateStatus('draft');
+                        self.hasDraft(true);
+                    }
                     self._currentEntityId = res.entity_id || self._currentEntityId;
                     self.updateBadges();
-                    self.setStatus('ready', 'DRAFT SAVED');
+                    self.setStatus('ready', isPublished ? 'SAVED' : 'DRAFT SAVED');
 
-                    if (self.templateSidebar) {
+                    if (!isPublished && self.templateSidebar) {
                         self.templateSidebar.markDraft(self.currentTemplateId(), true);
                     }
 
@@ -1070,7 +1074,7 @@ define([
                         self.draftListPanel.setDrafts(res.drafts);
                     }
 
-                    self.statusBarText('Draft saved');
+                    self.statusBarText(isPublished ? 'Saved' : 'Draft saved');
 
                     setTimeout(function () {
                         self.setStatus('ready');

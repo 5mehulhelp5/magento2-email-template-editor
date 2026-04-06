@@ -22,6 +22,8 @@ use Magento\Framework\Mail\MimeMessageInterfaceFactory;
 use Magento\Framework\Mail\MimePartInterfaceFactory;
 use Magento\Framework\Mail\EmailMessageInterfaceFactory;
 use Magento\Framework\Mail\AddressConverter;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\ScopeInterface;
 use Psr\Log\LoggerInterface;
 
 class SendTestEmail extends Action implements HttpPostActionInterface
@@ -38,6 +40,7 @@ class SendTestEmail extends Action implements HttpPostActionInterface
      * @param MimePartInterfaceFactory $mimePartFactory
      * @param AddressConverter $addressConverter
      * @param TransportInterfaceFactory $transportFactory
+     * @param ScopeConfigInterface $scopeConfig
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -50,6 +53,7 @@ class SendTestEmail extends Action implements HttpPostActionInterface
         private readonly MimePartInterfaceFactory $mimePartFactory,
         private readonly AddressConverter $addressConverter,
         private readonly TransportInterfaceFactory $transportFactory,
+        private readonly ScopeConfigInterface $scopeConfig,
         private readonly LoggerInterface $logger
     ) {
         parent::__construct($context);
@@ -103,7 +107,10 @@ class SendTestEmail extends Action implements HttpPostActionInterface
                 $templateIdentifier !== '' ? $templateIdentifier : null
             );
 
-            $subject = $templateSubject !== '' ? '[TEST] ' . $templateSubject : '[TEST] Email Template Preview';
+            $processedSubject = $templateSubject !== ''
+                ? $this->templateRenderer->renderPlain($templateSubject, $variables, $storeId, $templateIdentifier)
+                : '';
+            $subject = '[TEST] ' . ($processedSubject !== '' ? $processedSubject : 'Email Template Preview');
 
             $mimePart = $this->mimePartFactory->create([
                 'content' => $html,
@@ -117,9 +124,22 @@ class SendTestEmail extends Action implements HttpPostActionInterface
 
             $to = $this->addressConverter->convert($recipientEmail);
 
+            $senderEmail = $this->scopeConfig->getValue(
+                'trans_email/ident_general/email',
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            ) ?: 'no-reply@example.com';
+            $senderName = $this->scopeConfig->getValue(
+                'trans_email/ident_general/name',
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            ) ?: 'Store';
+            $from = $this->addressConverter->convert($senderEmail, $senderName);
+
             $emailMessage = $this->emailMessageFactory->create([
                 'body' => $mimeMessage,
                 'to' => [$to],
+                'from' => [$from],
                 'subject' => $subject,
             ]);
 

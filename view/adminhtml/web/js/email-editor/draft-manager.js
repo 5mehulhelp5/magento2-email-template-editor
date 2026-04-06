@@ -117,12 +117,18 @@ define([
             diffMin = Math.floor(diffSec / 60);
             diffHour = Math.floor(diffMin / 60);
 
+            var parent = this.source || this.parentComponent,
+                prefix = parent && typeof parent.currentTemplateStatus === 'function'
+                    && parent.currentTemplateStatus() === 'published'
+                    ? 'Saved '
+                    : 'Draft saved ';
+
             if (diffSec < 60) {
-                this.savedTimeText = 'Draft saved ' + diffSec + 's ago';
+                this.savedTimeText = prefix + diffSec + 's ago';
             } else if (diffMin < 60) {
-                this.savedTimeText = 'Draft saved ' + diffMin + 'm ago';
+                this.savedTimeText = prefix + diffMin + 'm ago';
             } else {
-                this.savedTimeText = 'Draft saved ' + diffHour + 'h ago';
+                this.savedTimeText = prefix + diffHour + 'h ago';
             }
         },
 

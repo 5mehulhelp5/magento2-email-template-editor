@@ -118,6 +118,57 @@ class TemplateRenderer implements TemplateRendererInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function renderPlain(
+        string $text,
+        array $variables,
+        int $storeId,
+        ?string $templateIdentifier = null
+    ): string {
+        $emulationStarted = false;
+
+        try {
+            $area = $templateIdentifier !== null
+                ? $this->areaResolver->resolve($templateIdentifier)
+                : 'frontend';
+
+            if ($storeId === 0) {
+                $storeId = (int)$this->getDefaultFrontendStoreId();
+            }
+
+            $this->appEmulation->startEnvironmentEmulation($storeId, $area, true);
+            $emulationStarted = true;
+
+            $template = $this->templateFactory->create();
+            $template->setTemplateType(\Magento\Email\Model\Template::TYPE_TEXT);
+            $template->setTemplateText($text);
+
+            $result = $this->appState->emulateAreaCode(
+                $area,
+                function () use ($template, $variables): string {
+                    return $template->getProcessedTemplate($variables);
+                }
+            );
+
+            $this->appEmulation->stopEnvironmentEmulation();
+            $emulationStarted = false;
+
+            return $result;
+        } catch (\Exception $e) {
+            $this->logger->error('Plain text rendering failed: ' . $e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return $text;
+        } finally {
+            if ($emulationStarted) {
+                $this->appEmulation->stopEnvironmentEmulation();
+            }
+        }
+    }
+
+    /**
      * Resolve theme CSS for the given store by loading the default theme
      *
      * @param int $storeId

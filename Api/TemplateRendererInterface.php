@@ -32,4 +32,20 @@ interface TemplateRendererInterface
         ?string $templateIdentifier = null,
         bool $isMockData = false
     ): string;
+
+    /**
+     * Render a plain text string (e.g. subject line) by processing Magento directives
+     *
+     * @param string $text Text containing Magento directives
+     * @param array<string, mixed> $variables Template variables for rendering
+     * @param int $storeId Store ID for store emulation
+     * @param string|null $templateIdentifier Template identifier for area resolution
+     * @return string Processed text with directives resolved
+     */
+    public function renderPlain(
+        string $text,
+        array $variables,
+        int $storeId,
+        ?string $templateIdentifier = null
+    ): string;
 }
