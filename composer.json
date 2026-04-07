@@ -2,7 +2,7 @@
     "name": "hryvinskyi/magento2-email-template-editor",
     "description": "Advanced email template editor with live preview for Magento 2",
     "type": "magento2-module",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Volodymyr Hryvinskyi",
