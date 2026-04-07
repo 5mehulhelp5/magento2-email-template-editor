@@ -12,7 +12,7 @@
     "require": {
         "php": "^8.1",
         "hryvinskyi/magento2-base": "*",
-        "hryvinskyi/magento2-configuration-fields": "*",
+        "hryvinskyi/magento2-configuration-fields": "^1.0.11",
         "magento/module-email": "*",
         "magento/module-variable": "*",
         "magento/module-sales": "*",
