@@ -77,8 +77,6 @@ Each template can have multiple overrides:
 - **Published** - Live overrides applied to transactional emails
 - **Scheduled** - Overrides with active date ranges
 
-Overrides are store-view specific, allowing different templates per store.
-
 ### Publishing Workflow
 
 1. Edit the template content
