@@ -88,7 +88,7 @@ Each template can have multiple overrides:
 
 ## License
 
-Proprietary - Copyright (c) 2026 Volodymyr Hryvinskyi. All rights reserved.
+MIT - Copyright (c) 2026 Volodymyr Hryvinskyi. All rights reserved.
 
 
 
