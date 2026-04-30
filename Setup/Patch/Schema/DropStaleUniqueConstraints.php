@@ -33,6 +33,10 @@ class DropStaleUniqueConstraints implements SchemaPatchInterface
         $connection = $this->schemaSetup->getConnection();
         $tableName = $this->schemaSetup->getTable(self::TABLE_NAME);
 
+        if (!$connection->isTableExists($tableName)) {
+            return $this;
+        }
+
         $indexes = $connection->getIndexList($tableName);
 
         foreach ($indexes as $indexName => $indexData) {
