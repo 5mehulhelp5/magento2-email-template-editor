@@ -108,7 +108,9 @@ class LastCustomerProvider implements SampleDataProviderInterface
                 'store' => $store,
                 'store_name' => $store->getName(),
                 'store_url' => $store->getBaseUrl(),
-                'logo_url' => '',
+                // logo_url is intentionally omitted so Magento's AbstractTemplate::addEmailVariables()
+                // resolves the configured email logo. An empty string would satisfy isset() and
+                // suppress that resolution, rendering src="".
                 'logo_alt' => $store->getName(),
             ];
 

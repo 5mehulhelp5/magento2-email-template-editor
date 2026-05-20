@@ -71,8 +71,10 @@ class AdminMockBuilder implements MockVariableBuilderInterface
      */
     private function getHeaderFooterVars(StoreInterface $store): array
     {
+        // logo_url is intentionally omitted so Magento\Email\Model\AbstractTemplate::addEmailVariables()
+        // resolves the configured email logo (design/email/logo) or the default one. Passing an empty
+        // string here would satisfy isset() and suppress that resolution, rendering src="".
         return [
-            'logo_url' => '',
             'logo_alt' => $store->getName(),
             'logo_width' => 200,
             'logo_height' => 50,

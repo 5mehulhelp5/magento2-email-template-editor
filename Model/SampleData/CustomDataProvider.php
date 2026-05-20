@@ -65,13 +65,15 @@ class CustomDataProvider implements SampleDataProviderInterface
             $store = $this->storeManager->getDefaultStoreView();
         }
 
+        // logo_url is intentionally omitted so Magento\Email\Model\AbstractTemplate::addEmailVariables()
+        // resolves the configured email logo (design/email/logo) or the default one. Passing an empty
+        // string here would satisfy isset() and suppress that resolution, rendering src="".
         return [
             'store' => $store,
             'store_name' => $store->getName(),
             'store_url' => $store->getBaseUrl(),
             'store_email' => 'support@example.com',
             'store_phone' => '+1 (555) 123-4567',
-            'logo_url' => '',
             'logo_alt' => $store->getName(),
         ];
     }
